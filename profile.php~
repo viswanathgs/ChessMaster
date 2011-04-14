@@ -30,7 +30,7 @@ function performMove(button_clicked) {
       var jsonObject = eval('('+jsonText+')');
 
       if (jsonObject.status == 2) {
-	setTimeout(playGame,1000);
+	setTimeout(playGame,3000);
       }
       else if (jsonObject.status == 4) {
 	document.getElementById("gamevalue").value = jsonObject.value;
@@ -47,20 +47,36 @@ function performMove(button_clicked) {
   xmlhttp.send();  
 }
 
+// function playGame() {
+//   var xmlhttp = createXMLHttpRequest();
+//   xmlhttp.onreadystatechange=function() {
+//     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+//       alert(xmlhttp.responseText);
+//       setTimeout(playGame,3000);
+//     }
+//   }
+// 
+// //   xmlhttp.open("GET","testajax.php&t="+Math.random(),true);
+//   xmlhttp.open("GET","testajax.php?&t="+Math.random()+"&wait=0",true);
+//   xmlhttp.send();
+// }
+
 function playGame() {
   var xmlhttp = createXMLHttpRequest();
   xmlhttp.onreadystatechange=function() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
       var jsonText = xmlhttp.responseText;
       var jsonObject = eval('('+jsonText+')');
+
+//       alert(jsonText);
     
       if (jsonObject.status == 1) {
 	document.getElementById("gamevalue").value = jsonObject.value;
 	document.getElementById("gamevalue").innerHTML = jsonObject.value;
-	setTimeout(playGame,1000);
+	setTimeout(playGame,3000);
       }
       else if (jsonObject.status == 2) {
-	setTimeout(playGame,1000);
+	setTimeout(playGame,3000);
       }
       else if (jsonObject.status == 3) {
 	var value = parseInt(document.getElementById("gamevalue").value);
