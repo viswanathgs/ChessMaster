@@ -16,7 +16,7 @@
 var username;
 var gameid;
 
-function beginGame(value) {
+function beginGame() {
   window.location = "ingame.php";
 }
 
@@ -34,7 +34,7 @@ function pairUpCallback() {
       }
       else {
 	document.getElementById("status").innerHTML = "Paired up with "+opponent;
-	beginGame(10);
+	beginGame();
       }
     }
   }
@@ -45,7 +45,7 @@ function pairUpCallback() {
 
 function pairUp(user) {
   username = user;
-  document.getElementById("status").innerHTML = "Waiting for players...";
+  document.getElementById("status").innerHTML = "Waiting for an opponent...";
 
   var xmlhttp = createXMLHttpRequest();
   xmlhttp.onreadystatechange=function() {
@@ -60,7 +60,7 @@ function pairUp(user) {
       }
       else {
 	document.getElementById("status").innerHTML = "Paired up with "+opponent;
-	beginGame(10);
+	beginGame();
       }
     }
   }

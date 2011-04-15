@@ -1,6 +1,7 @@
 <?php 
 require_once("db_config.php");
 require_once("session_config.php");
+include("chess.php");
 
 if (!isset($_SESSION["username"])) exit;
 
@@ -81,8 +82,14 @@ if ($query == "get") {
   $sql='SELECT * FROM Users WHERE username="'.$username.'"';
   $result=mysql_query($sql) or die('Error: '.mysql_error());
   $row=mysql_fetch_array($result);
+  $gameid=$row['gameid'];
+  
+  $sql='SELECT * FROM Games WHERE gameid='.$gameid;
+  $result=mysql_query($sql) or die('Error: '.mysql_error());
+  $row=mysql_fetch_array($result);
+  $board=explodeBoard($row['board']);
 
-  $response=array("username"=>$username, "gameid"=>$row['gameid']);
+  $response=array("username"=>$username, "gameid"=>$gameid, "board"=>$board);
 }
 
 echo json_encode($response);

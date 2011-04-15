@@ -1,6 +1,7 @@
 <?php
   require_once("db_config.php");
   require_once("session_config.php");
+  include("chess.php");
 
   if (!isset($_SESSION['username'])) exit;
 ?>
@@ -15,6 +16,8 @@
 <script language="javascript" type="text/javascript">
 var username;
 var gameid;
+var board;
+var boardindex = new Array("A","B","C","D","E","F","G","H");
 
 function performMove(button_clicked) {
   var gameobj = document.getElementById("gamevalue");
@@ -43,7 +46,7 @@ function performMove(button_clicked) {
 	  document.getElementById("result").innerHTML = "You lost!";
       }
 
-      setTimeout(updateChat,500);
+      setTimeout(updateChat,1000);
     }
   }
   xmlhttp.open("GET","gameplay.php?&t="+Math.random()+"&g="+gameid+"&q=update&b="+button_clicked);
@@ -83,7 +86,7 @@ function playGame() {
 	  document.getElementById("result").innerHTML = "You lost!";
       }
 
-      setTimeout(updateChat,500);
+      setTimeout(updateChat,1000);
     }
   }
 
@@ -128,7 +131,7 @@ function insertChatMessage(user,message) {
   var chatdocument = chatwindow.document;
 
   var newdiv = chatdocument.createElement("div");
-  newdiv.innerHTML = user+": "+message;
+  newdiv.innerHTML = "<strong>"+user+":</strong> "+message;
 
   chatdocument.getElementById("chatcontents").appendChild(newdiv);
   chatwindow.scrollTo(0,chatdocument.getElementById("chatcontents").offsetHeight);
@@ -137,13 +140,38 @@ function insertChatMessage(user,message) {
   document.getElementById("chatmessage").focus();
 }
 
-function setupGame() {
-  document.getElementById("gamevalue").innerHTML = 10;
-  document.getElementById("gamevalue").value = 10;
+// function setupGame() {
+//   document.getElementById("gamevalue").innerHTML = 10;
+//   document.getElementById("gamevalue").value = 10;
+// 
+//   // Initially set the buttons disabled
+//   document.getElementById("button1").disabled = true;
+//   document.getElementById("button2").disabled = true;
+// 
+//   xmlhttp = createXMLHttpRequest();
+//   xmlhttp.onreadystatechange=function() {
+//     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+//       var jsonText = xmlhttp.responseText;
+//       var jsonObject = eval('('+jsonText+')');
+//       
+//       username = jsonObject.username;
+//       gameid = parseInt(jsonObject.gameid);
+//      
+//       playGame();
+//     }
+//   }
+// 
+//   xmlhttp.open("GET","gameplay.php?&t="+Math.random()+"&q=get",true);
+//   xmlhttp.send(); 
+// }
 
-  // Initially set the buttons disabled
-  document.getElementById("button1").disabled = true;
-  document.getElementById("button2").disabled = true;
+function setupGame() {
+//   document.getElementById("gamevalue").innerHTML = 10;
+//   document.getElementById("gamevalue").value = 10;
+// 
+//   // Initially set the buttons disabled
+//   document.getElementById("button1").disabled = true;
+//   document.getElementById("button2").disabled = true;
 
   xmlhttp = createXMLHttpRequest();
   xmlhttp.onreadystatechange=function() {
@@ -153,7 +181,19 @@ function setupGame() {
       
       username = jsonObject.username;
       gameid = parseInt(jsonObject.gameid);
-     
+      board = jsonObject.board;
+
+//       var boardindex = new Array("A","B","C","D","E","F","G","H");
+//       var output="";
+//       for(var i=1; i<=8; i++) {
+// 	for(var j=0; j<8; j++) {
+// 	  
+// 	  output+=(board[boardindex[j]][i]+" ");
+// 	}
+// 	output += "\n";
+//       }
+//       alert(output);
+
       playGame();
     }
   }
@@ -161,6 +201,7 @@ function setupGame() {
   xmlhttp.open("GET","gameplay.php?&t="+Math.random()+"&q=get",true);
   xmlhttp.send(); 
 }
+
 </script>
 </head>
 <body onload="setupGame()">

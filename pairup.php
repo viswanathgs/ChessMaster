@@ -1,6 +1,7 @@
 <?php 
 require_once("db_config.php");
 require_once("session_config.php");
+include("chess.php");
 
 if (!isset($_SESSION['username'])) exit;
 
@@ -9,6 +10,8 @@ $wait=intval($_GET["wait"]);
 
 $response=NULL;
 if ($wait == 0) {
+  // Check if there is any waiting player
+
   $sql='UPDATE Users SET status="waiting" WHERE username="'.$username.'"';
   mysql_query($sql) or die('Error: '.mysql_error());
   $sql='SELECT * FROM Users where username!="'.$username.'" and status="waiting"';
@@ -21,7 +24,9 @@ if ($wait == 0) {
     $sql='DELETE FROM Games where player1="'.$username.'" or player1="'.$opponent.'" or player2="'.$username.'" or player2="'.$opponent.'"';
     mysql_query($sql) or die('Error: '.mysql_error());
 
-    $sql='INSERT INTO Games(player1, player2, turn, board, changed, winner) values("'.$username.'", "'.$opponent.'", "'.$username.'", "'."10".'", 0, "")';
+    $board=getInitialBoard();
+    $boardtext=implodeBoard($board);
+    $sql='INSERT INTO Games(player1, player2, turn, board, changed, winner) values("'.$username.'", "'.$opponent.'", "'.$username.'", "'.$boardtext.'", 0, "")';
     mysql_query($sql) or die('Error: '.mysql_error());
 
     $sql='SELECT gameid FROM Games WHERE player1="'.$username.'" and player2="'.$opponent.'"';
@@ -41,6 +46,8 @@ if ($wait == 0) {
   }
 }
 else {
+  // Check if someone else has added you to a game
+
   $sql='SELECT * FROM Users WHERE username="'.$username.'"';
   $result=mysql_query($sql) or die('Error: '.mysql_error());
   $row=mysql_fetch_array($result);
