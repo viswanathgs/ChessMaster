@@ -1,10 +1,12 @@
 <?php
 $db_host="localhost";
-$db_name="chessmaster";
+$db_name="chess";
 $username="testdb";
 $password="testdb";
 
 $db_con=mysql_connect($db_host,$username,$password);
+mysql_select_db($db_name);
+/*
 $sql="CREATE DATABASE IF NOT EXISTS $db_name";
 mysql_query($sql) or die('Error: '.mysql_error());
 mysql_select_db($db_name);
@@ -22,4 +24,5 @@ if (mysql_errno()==1146) {
 	$sql="CREATE TABLE Games(gameid int AUTO_INCREMENT, player1 char(30), player2 char(30), turn char(30), value int, changed int, winner char(30), primary key (gameid))";
 	mysql_query($sql) or die('Error: '.mysql_error());
 }
+*/
 ?>

@@ -49,6 +49,7 @@ CREATE TABLE `Games` (
   `turn` varchar(30) DEFAULT NULL,
   `changed` int(11) DEFAULT NULL,
   `board` varchar(255) DEFAULT NULL,
+  `winner` varchar(30) DEFAULT '',
   PRIMARY KEY (`gameid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -117,4 +118,4 @@ CREATE TABLE `UsersHistory` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-04-15 18:18:50
+-- Dump completed on 2011-04-15 19:33:51
