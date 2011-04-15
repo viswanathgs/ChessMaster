@@ -5,7 +5,9 @@ require_once("session_config.php");
 if (!isset($_SESSION["username"])) exit;
 
 $username=$_SESSION["username"];
-$gameid=intval($_GET["g"]);
+if (isset($_GET["g"])) {
+  $gameid=intval($_GET["g"]);
+}
 $query=$_GET["q"];
 
 /*
@@ -77,7 +79,13 @@ if ($query == "update") {
   }
 }
 
-if ($response==NULL)
-  $response=array("status"=>-1, "value"=>-1);
+if ($query == "get") {
+  $sql='SELECT * FROM Users WHERE username="'.$username.'"';
+  $result=mysql_query($sql) or die('Error: '.mysql_error());
+  $row=mysql_fetch_array($result);
+
+  $response=array("username"=>$username, "gameid"=>$row['gameid']);
+}
+
 echo json_encode($response);
 ?>
