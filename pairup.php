@@ -21,7 +21,7 @@ if ($wait == 0) {
     $sql='DELETE FROM Games where player1="'.$username.'" or player1="'.$opponent.'" or player2="'.$username.'" or player2="'.$opponent.'"';
     mysql_query($sql) or die('Error: '.mysql_error());
 
-    $sql='INSERT INTO Games(player1, player2, turn, board, changed, winner) values("'.$username.'", "'.$opponent.'", "'.$username.'", 10, 0, "")';
+    $sql='INSERT INTO Games(player1, player2, turn, board, changed, winner) values("'.$username.'", "'.$opponent.'", "'.$username.'", "'."10".'", 0, "")';
     mysql_query($sql) or die('Error: '.mysql_error());
 
     $sql='SELECT gameid FROM Games WHERE player1="'.$username.'" and player2="'.$opponent.'"';

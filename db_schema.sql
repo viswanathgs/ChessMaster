@@ -28,11 +28,10 @@ CREATE TABLE `Chats` (
   `username` varchar(30) DEFAULT NULL,
   `postedon` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `message` varchar(255) DEFAULT NULL,
-  `readflag` int(11) DEFAULT NULL,
   PRIMARY KEY (`messageid`),
   KEY `gameid` (`gameid`),
   KEY `username` (`username`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,7 +50,7 @@ CREATE TABLE `Games` (
   `board` varchar(255) DEFAULT NULL,
   `winner` varchar(30) DEFAULT '',
   PRIMARY KEY (`gameid`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,4 +117,4 @@ CREATE TABLE `UsersHistory` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-04-15 19:33:51
+-- Dump completed on 2011-04-15 22:31:09

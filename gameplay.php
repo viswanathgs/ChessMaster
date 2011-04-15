@@ -22,16 +22,14 @@ if ($query == "turn") {
   $sql="SELECT * FROM Games WHERE gameid=$gameid";
   $result=mysql_query($sql) or die('Error: '.mysql_error());
   $row=mysql_fetch_array($result);
-      
-  if ($row['turn'] != $username) {
+
+  if ($row['winner'] != "") {
+      $response=array("status"=>4, "winner"=>$row['winner']);
+  }
+  else if ($row['turn'] != $username) {
     if (intval($row['changed']) == 1) {
-      if ($row['winner'] != "") {
-	$response=array("status"=>4, "winner"=>$row['winner']);
-      }
-      else {
-	$response=array("status"=>1, "value"=>$row['value']);
-      }
- 
+      $response=array("status"=>1, "value"=>$row['board']);
+      
       $sql='UPDATE Games SET turn="'.$username.'" WHERE gameid='.$gameid;
       mysql_query($sql) or die('Error: '.mysql_error());
       
@@ -39,15 +37,15 @@ if ($query == "turn") {
       mysql_query($sql) or die('Error: '.mysql_error());
     }
     else {
-      $response=array("status"=>2, "value"=>$row['value']);
+      $response=array("status"=>2, "value"=>$row['board']);
     }
   }
   else {
     if (intval($row['changed']) == 0) {
-      $response=array("status"=>3, "value"=>$row['value']);
+      $response=array("status"=>3, "value"=>$row['board']);
     }
     else {
-      $response=array("status"=>2, "value"=>$row['value']);
+      $response=array("status"=>2, "value"=>$row['board']);
     }
   }
 }
@@ -59,10 +57,10 @@ if ($query == "update") {
   $result=mysql_query($sql) or die('Error: '.mysql_error());
   $row=mysql_fetch_array($result);
 
-  $value=$row['value'];
+  $value=$row['board'];
   $value=$value-$button_clicked;
   
-  $sql="UPDATE Games SET value=$value WHERE gameid=$gameid";
+  $sql='UPDATE Games SET board="'.$value.'" WHERE gameid='.$gameid;
   mysql_query($sql) or die('Error: '.mysql_error());
 
   $sql="UPDATE Games SET changed=1 WHERE gameid=$gameid";
