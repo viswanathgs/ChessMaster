@@ -3,12 +3,18 @@
   $username=$_POST["username"];
   $password=$_POST["password"];
 
-  $sql='SELECT password FROM Users WHERE username="'.$username.'"';
+  $sql='SELECT * FROM Users WHERE username="'.$username.'"';
   $result=mysql_query($sql) or die('Error: '.mysql_error());
-  $row=mysql_fetch_array($result);
-      
-  if ($row['password'] == $password)
-    echo "true";
-  else 
+
+  if (mysql_num_rows($result) == 0) {
     echo "false";
+  }
+  else {
+    $row=mysql_fetch_array($result);
+
+    if ($row['password'] == $password)
+      echo "true";
+    else 
+      echo "false";
+  }
 ?>

@@ -1,13 +1,19 @@
+<?php 
+  require_once("session_config.php");
+
+  if (isset($_SESSION['username'])) {
+    unset($_SESSION['username']);
+  }
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
 <head>
 <meta charset="utf-8" />
-<title>ChessMaster Club</title>
+<title>ChessMaster Club - Login</title>
 
-<style type="text/css">
-h1{font-size:138.5%;}h2{font-size:123.1%;}h3{font-size:108%;}h1,h2,h3{margin:1em 0;}h1,h2,h3,h4,h5,h6,strong{font-weight:bold;}abbr,acronym{border-bottom:1px dotted #000;cursor:help;} em{font-style:italic;}blockquote,ul,ol,dl{margin:1em;}ol,ul,dl{margin-left:2em;}ol li{list-style:decimal outside;}ul li{list-style:disc outside;}dl dd{margin-left:1em;}th,td{border:1px solid #000;padding:.5em;}th{font-weight:bold;text-align:center;}caption{margin-bottom:.5em;text-align:center;}p,fieldset,table,pre{margin-bottom:1em;}input[type=text],input[type=password],textarea{width:12.25em;*width:11.9em;}
-</style>
+<link rel="stylesheet" type="text/css" href="css/common.css"/>
 
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript">
@@ -48,22 +54,46 @@ function chk()
 }
  
 function register() {
- window.location="regpage.html";
+ window.location="regpage.php";
 }
 </script>
 
 </head>
 
 <body onload="init()">
+<div id="outer">
+
+<div id="header">
+<img src="images/logo.png" />
+</div>
+
+<div id="main">
+<div class="logindiv">
 <div id="val"></div>
 <span id="globalvar"></span>
 <form autocomplete="on" method="POST" action="login.php" onsubmit="return chk();">
-Username <input name="username" id="username" type="text" /> <br />
-Password <input name="password" id="password" type="password" /> <br />
-<input type="submit" />
+
+<table class="logintable">
+<tr><td>
+<label for="username"><p>
+Username or email</label></p> <input name="username" id="username" type="text" />
+</td></tr>
+<tr><td>
+<label for="password"><p>
+Password </label></p><input name="password" id="password" type="password" /> 
+</td></tr>
+<tr><td></td></tr>
+<div id="info" class="info"></div>
+<tr><td>
+<input type="submit" value="Login" />
 <input type="button" onclick="register()" value="Register" />
+</td>
+</tr>
+</table>
 </form>
-<div id="info"> </div>
+</div>
+</div>
+</div>
 </body>
 
 </html>

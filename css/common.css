@@ -1,0 +1,39 @@
+body {
+  background: #E4E6CF;
+}
+
+.logindiv {
+  text-align: center;
+  margin-left: 30%;
+  margin-right: 30%;
+  padding: 20px;
+  background: #E5E8DC;
+  border: 3px outset;
+  font-family: "Times New Roman";
+  font-size: 16px;
+}
+
+div#outer {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px;
+}
+
+div#header {
+    padding: 15px;
+    margin: 0px;
+    text-align: center;
+}
+
+div.info {
+  color: red;
+  font-family: Georgia;
+  font-size: 12px;
+}
+
+table.logintable {
+  padding: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}

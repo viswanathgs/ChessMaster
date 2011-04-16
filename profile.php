@@ -2,7 +2,7 @@
   require_once("db_config.php");
   require_once("session_config.php");
 
-//   if (!isset($_SESSION['username'])) exit;
+  if (!isset($_SESSION['username'])) exit;
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"

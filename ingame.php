@@ -23,40 +23,6 @@ var selectedcol = "";
 var selectedrow = 0;
 var disabled;
 
-// function performMove(button_clicked) {
-//   var gameobj = document.getElementById("gamevalue");
-//   gameobj.value = parseInt(gameobj.value) - parseInt(button_clicked);
-//   gameobj.innerHTML = gameobj.value;
-//  
-//   document.getElementById("button1").disabled = true;
-//   document.getElementById("button2").disabled = true;
-//  
-//   var xmlhttp = createXMLHttpRequest();
-//   xmlhttp.onreadystatechange=function() {
-//     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-//       var jsonText = xmlhttp.responseText;
-//       var jsonObject = eval('('+jsonText+')');
-// 
-//       if (jsonObject.status == 2) {
-// // 	theMainLoop();
-//       }
-//       else if (jsonObject.status == 4) {
-// 	document.getElementById("gamevalue").value = jsonObject.value;
-// 	document.getElementById("gamevalue").innerHTML = jsonObject.value;
-// 
-// 	if (jsonObject.winner == username)
-// 	  document.getElementById("result").innerHTML = "You won!";
-// 	else
-// 	  document.getElementById("result").innerHTML = "You lost!";
-//       }
-// 
-//       setTimeout(updateChat,1000);
-//     }
-//   }
-//   xmlhttp.open("GET","gameplay.php?&t="+Math.random()+"&g="+gameid+"&q=update&b="+button_clicked);
-//   xmlhttp.send();  
-// }
-
 function getColIndex(col) {
   for (var i=0; i<boardindex.length; i++) {
     if (boardindex[i] == col)
@@ -415,7 +381,7 @@ function playGame() {
 	  document.getElementById("result").innerHTML = "You lost!";
       }
 
-      setTimeout(updateChat,1000);
+      setTimeout(updateChat,500);
     }
   }
 
@@ -431,7 +397,7 @@ function postChat() {
   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   xmlhttp.send("g="+gameid+"&m="+message);
 
-  setTimeout(updateChat,1000);
+  setTimeout(updateChat,500);
 }
 
 function updateChat() {
@@ -447,7 +413,7 @@ function updateChat() {
 	}
       }
 
-      setTimeout(playGame,1000);
+      setTimeout(playGame,500);
     }
   }
 
