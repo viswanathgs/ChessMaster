@@ -316,7 +316,7 @@ function performMoveOnBoard(colf,rowf,colt,rowt) {
 }
 
 function selectSquareOnBoard(col,row) {
-  document.getElementById("square"+col+row).innerHTML = "";
+  document.getElementById("square"+col+row).innerHTML = "<img src='images/"+board[col][row]+"S.gif' />";
 }
 
 function unselectSquareOnBoard(col,row) {
