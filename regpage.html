@@ -1,0 +1,77 @@
+<html>
+<head>
+    
+<title>ChessMaster - Registration</title>
+ 
+<style type="text/css">
+h1{font-size:138.5%;}h2{font-size:123.1%;}h3{font-size:108%;}h1,h2,h3{margin:1em 0;}h1,h2,h3,h4,h5,h6,strong{font-weight:bold;}abbr,acronym{border-bottom:1px dotted #000;cursor:help;} em{font-style:italic;}blockquote,ul,ol,dl{margin:1em;}ol,ul,dl{margin-left:2em;}ol li{list-style:decimal outside;}ul li{list-style:disc outside;}dl dd{margin-left:1em;}th,td{border:1px solid #000;padding:.5em;}th{font-weight:bold;text-align:center;}caption{margin-bottom:.5em;text-align:center;}p,fieldset,table,pre{margin-bottom:1em;}input[type=text],input[type=password],textarea{width:12.25em;*width:11.9em;}
+</style>
+
+ <script type="text/javascript" src="jquery.js"></script>
+ <script type="text/javascript">
+ 
+ function init()
+ {
+ 	$("#info").hide();
+ 	$("#error_info").hide();
+ }
+ 
+function chk_callback(data)
+{
+ 	$("#error_info").fadeOut("fast");
+ 	$("#error_info").fadeIn("fast");
+	$("#error_info").html(data);
+} 
+ 
+function chk()
+{
+  $.post("usrname_duplicate_chk.php", { username : $("#username").val() },
+	  function(data) 
+	  { 
+		  $("#info").fadeOut("fast");
+		  $("#info").fadeIn("fast");
+		  if(data==1) 
+			  $("#info").html("Username exists. Please choose a different username."); 
+		  else
+			  $("#info").html("Username available.");
+  })  
+}
+ 
+ function insert_into_db()
+ {
+ 	$.ajax({
+   type: "POST",
+   url: "userreg.php",
+   async:false,
+   data: "username=" + $("#username").val()+ "&password="+ $("#password").val() + "&cpassword="+ $("#cpassword").val() + "&aboutme="+ $("#aboutme").val() + "&country="+ $("#country").val(),
+   success: function(data){
+      chk_callback(data); 
+    
+    $("#globalvar").html(data);
+     
+   }
+ });
+ if($("#globalvar").html()=="1")
+ {
+ 	return true;
+ }
+ else
+ return false;
+  }
+
+  </script>
+  </head>
+<body onload="init()">
+<!-- <input type="hidden" id="globalvar" /> -->
+<span id="globalvar"></span>
+<form action="login.php" method="post" onsubmit="return insert_into_db()">
+Username <input type="text" name="username" id="username" onblur="chk()"/> <span id="info"> </span><br />
+Password <input type="password" name="password" id="password" /><br />
+Confirm Password <input type="password" name="password" id="cpassword" /> <br />
+About Me <textarea id="aboutme"></textarea><br />
+Country <input type="text" id="country" />
+<input type="submit"/>
+ </form>
+ <div id="error_info"> </div>
+</body>
+</html>
