@@ -10,47 +10,329 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
 <head>
-<script language="javascript" type="text/javascript" src="js/jquery.js"></script>
-<script language="javascript" type="text/javascript" src="js/ajax.js"></script>
+<script language="javascript" type="text/javascript" src="jquery.js"></script>
+<script language="javascript" type="text/javascript" src="ajax.js"></script>
 
 <script language="javascript" type="text/javascript">
 var username;
 var gameid;
 var board;
 var boardindex = new Array("A","B","C","D","E","F","G","H");
+var white;
+var selectedcol = "";
+var selectedrow = 0;
 
-function performMove(button_clicked) {
-  var gameobj = document.getElementById("gamevalue");
-  gameobj.value = parseInt(gameobj.value) - parseInt(button_clicked);
-  gameobj.innerHTML = gameobj.value;
- 
-  document.getElementById("button1").disabled = true;
-  document.getElementById("button2").disabled = true;
- 
-  var xmlhttp = createXMLHttpRequest();
-  xmlhttp.onreadystatechange=function() {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      var jsonText = xmlhttp.responseText;
-      var jsonObject = eval('('+jsonText+')');
+// function performMove(button_clicked) {
+//   var gameobj = document.getElementById("gamevalue");
+//   gameobj.value = parseInt(gameobj.value) - parseInt(button_clicked);
+//   gameobj.innerHTML = gameobj.value;
+//  
+//   document.getElementById("button1").disabled = true;
+//   document.getElementById("button2").disabled = true;
+//  
+//   var xmlhttp = createXMLHttpRequest();
+//   xmlhttp.onreadystatechange=function() {
+//     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+//       var jsonText = xmlhttp.responseText;
+//       var jsonObject = eval('('+jsonText+')');
+// 
+//       if (jsonObject.status == 2) {
+// // 	theMainLoop();
+//       }
+//       else if (jsonObject.status == 4) {
+// 	document.getElementById("gamevalue").value = jsonObject.value;
+// 	document.getElementById("gamevalue").innerHTML = jsonObject.value;
+// 
+// 	if (jsonObject.winner == username)
+// 	  document.getElementById("result").innerHTML = "You won!";
+// 	else
+// 	  document.getElementById("result").innerHTML = "You lost!";
+//       }
+// 
+//       setTimeout(updateChat,1000);
+//     }
+//   }
+//   xmlhttp.open("GET","gameplay.php?&t="+Math.random()+"&g="+gameid+"&q=update&b="+button_clicked);
+//   xmlhttp.send();  
+// }
 
-      if (jsonObject.status == 2) {
-// 	theMainLoop();
+function getColIndex(col) {
+  for (var i=0; i<boardindex.length; i++) {
+    if (boardindex[i] == col)
+      return i;
+  }
+  return -1;
+}
+
+function isValidMovePawn(colf,rowf,colt,rowt) {
+  var colfindex = getColIndex(colf);
+  var coltindex = getColIndex(colt);
+  var colnindex;
+  var rown;
+
+  var dy = new Array(-1,1);
+  var piecef = board[colf][rowf];	  
+
+  if (white) {
+    if (rowf+1 == rowt) {
+      for (var j=0; j<dy.length; j++) {
+	if (colfindex+dy[j] == coltindex) {
+	  if (board[boardindex[colfindex+dy[j]]][rowf+1] != "" && board[boardindex[colfindex+dy[j]]][rowf+1].charAt(0) != piecef.charAt(0))
+	    return true;
+	}
       }
-      else if (jsonObject.status == 4) {
-	document.getElementById("gamevalue").value = jsonObject.value;
-	document.getElementById("gamevalue").innerHTML = jsonObject.value;
 
-	if (jsonObject.winner == username)
-	  document.getElementById("result").innerHTML = "You won!";
-	else
-	  document.getElementById("result").innerHTML = "You lost!";
+      if (colfindex == coltindex) {
+	if (board[boardindex[colfindex]][rowf+1] == "")
+	  return true;
       }
+    }
 
-      setTimeout(updateChat,1000);
+    if (rowf+2 == rowt && colfindex == coltindex) {
+      if (board[boardindex[colfindex]][rowf+2] == "" && board[boardindex[colfindex]][rowf+1] == "")
+	return true;
     }
   }
-  xmlhttp.open("GET","gameplay.php?&t="+Math.random()+"&g="+gameid+"&q=update&b="+button_clicked);
-  xmlhttp.send();  
+  else {
+    if (rowf-1 == rowt) {
+      for (var j=0; j<dy.length; j++) {
+	if (colfindex+dy[j] == coltindex) {
+	  if (board[boardindex[colfindex+dy[j]]][rowf-1] != "" && board[boardindex[colfindex+dy[j]]][rowf-1].charAt(0) != piecef.charAt(0))
+	    return true;
+	}
+      }
+
+      if (colfindex == coltindex) {
+	if (board[boardindex[colfindex]][rowf-1] == "")
+	  return true;
+      }
+    }
+
+    if (rowf-2 == rowt && colfindex == coltindex) {
+      if (board[boardindex[colfindex]][rowf-2] == "" && board[boardindex[colfindex]][rowf-1] == "")
+	return true;
+    }
+  }
+
+  return false;
+}
+
+function isValidMoveKing(colf,rowf,colt,rowt) {
+  var colfindex = getColIndex(colf);
+  var coltindex = getColIndex(colt);
+
+  var dx = new Array(0,1,1,1,0,-1,-1,-1);
+  var dy = new Array(-1,-1,0,1,1,1,0,-1);
+  var piecef = board[colf][rowf];
+
+  for (var i=0; i<dx.length; i++) {
+    if (rowf+dx[i] < 1 || rowf+dx[i] > 8)
+      continue;
+    if (rowf+dx[i] != rowt)
+      continue;
+
+    for (var j=0; j<dy.length; j++) {
+      if (colfindex+dy[j] < 0 || colfindex+dy[j] >= 8)
+	continue;
+      if (colfindex+dy[j] != coltindex)
+	continue;
+      
+      var piecet = board[boardindex[colfindex+dy[j]]][rowf+dx[i]];
+      if (piecet != "" && piecef.charAt(0) == piecet.charAt(0)) return false;
+      else return true;
+    }
+  }
+
+  return false;
+}
+
+function isValidMoveRook(colf,rowf,colt,rowt) {
+  var colfindex = getColIndex(colf);
+  var coltindex = getColIndex(colt);
+
+  var piecef = board[colf][rowf];
+
+  if (colf == colt) {
+    var rown = rowf-1;
+    while (rown>0 && (board[colt][rown] == "" || board[colt][rown].charAt(0) != piecef.charAt(0))) {
+      if (rown == rowt) 
+	return true;
+      if (board[colt][rown] != "")
+	break;
+      rown--;
+    }
+
+    rown = rowf+1;
+    while (rown<=8 && (board[colt][rown] == "" || board[colt][rown].charAt(0) != piecef.charAt(0))) {
+      if (rown == rowt)
+	return true;
+      if (board[colt][rown] != "")
+	break;
+      rown++;
+    }
+  }
+
+  if (rowf == rowt) {
+    var colnindex = colfindex-1;
+    while (colnindex>=0 && (board[boardindex[colnindex]][rowt] == "" || board[boardindex[colnindex]][rowt].charAt(0) != piecef.charAt(0))) {
+      if (colnindex == coltindex)
+	return true;
+      if (board[boardindex[colnindex]][rowt] != "")
+	break;
+      colnindex--;
+    }
+
+    colnindex = colfindex+1;
+    while (colnindex<8 && (board[boardindex[colnindex]][rowt] == "" || board[boardindex[colnindex]][rowt].charAt(0) != piecef.charAt(0))) {
+      if (colnindex == coltindex)
+	return true;
+      if (board[boardindex[colnindex]][rowt] != "")
+	break;
+      colnindex++;
+    }
+  }
+
+  return false;
+}
+
+function isValidMoveKnight(colf,rowf,colt,rowt) {
+  var colfindex = getColIndex(colf);
+  var coltindex = getColIndex(colt);
+
+  var dx = new Array(1,2,2,1,-1,-2,-2,-1);
+  var dy = new Array(-2,-1,1,2,2,1,-1,-2);
+  var piecef = board[colf][rowf];
+
+  for (var i=0; i<dx.length; i++) {
+    if (rowf+dx[i] < 1 || rowf+dx[i] > 8)
+      continue;
+    if (rowf+dx[i] != rowt)
+      continue;
+
+    for (var j=0; j<dy.length; j++) {
+      if (colfindex+dy[j] < 0 || colfindex+dy[j] >= 8)
+	continue;
+      if (colfindex+dy[j] != coltindex)
+	continue;
+      
+      var piecet = board[boardindex[colfindex+dy[j]]][rowf+dx[i]];
+      if (piecet != "" && piecef.charAt(0) == piecet.charAt(0)) return false;
+      else return true;
+    }
+  }
+
+  return false;
+}
+
+function isValidMoveBishop(colf,rowf,colt,rowt) {
+  var colfindex = getColIndex(colf);
+  var coltindex = getColIndex(colt);
+
+  var dx = new Array(1,1,-1,-1);
+  var dy = new Array(1,-1,1,-1);
+  var piecef = board[colf][rowf];
+
+  for (var i=0; i<dx.length; i++) {
+    var rown = rowf+dx[i];
+    var colnindex = colfindex+dy[i];
+
+    while (rown<=8 && colnindex<8 && (board[boardindex[colnindex]][rown] == "" || board[boardindex[colnindex]][rown].charAt(0) != piecef.charAt(0))) {
+      if (rown == rowt && colnindex == coltindex)
+	return true;
+      if (board[boardindex[colnindex]][rown] != "")
+	break;
+      rown += dx[i];
+      colnindex += dy[i];
+    }
+  }
+
+  return false;
+}
+
+function isValidInitialSelection(col,row) {
+  var piece = board[col][row];
+  var color;
+
+  if (white) color = 'W';
+  else color = 'B';
+
+  if (piece == "" || piece.charAt(0) != color) return false;
+  return true;
+}
+
+function isValidMove(colf,rowf,colt,rowt) {
+  if (!isValidInitialSelection(colf,rowf)) return false;
+  
+  var piece = board[colf][rowf];
+  if (piece.charAt(1) == 'P') {
+    if (isValidMovePawn(colf,rowf,colt,rowt)) return true;
+    else return false;
+  }
+  else if (piece.charAt(1) == 'R') {
+    if (isValidMoveRook(colf,rowf,colt,rowt)) return true;
+    else return false;
+  }
+  else if (piece.charAt(1) == 'N') {
+    if (isValidMoveKnight(colf,rowf,colt,rowt)) return true;
+    else return false;
+  }
+  else if (piece.charAt(1) == 'B') {
+    if (isValidMoveBishop(colf,rowf,colt,rowt)) return true;
+    else return false;
+  }
+  else if (piece.charAt(1) == 'K') {
+    if (isValidMoveKing(colf,rowf,colt,rowt)) return true;
+    else return false;
+  }
+  else if (piece.charAt(1) == 'Q') {
+    if (isValidMoveRook(colf,rowf,colt,rowt) || isValidMoveBishop(colf,rowf,colt,rowt)) 
+      return true;
+    else
+      return false;
+  }
+
+  return false;
+}
+
+function squareClicked(col,row) {
+  // need to call updateChat() somewhere here
+
+  if (selectedcol == "" || selectedrow == 0) {
+    if (isValidInitialSelection(col,row)) {
+      selectedcol = col;
+      selectedrow = row;
+      // make the square selected. highlight it.
+    }
+  }
+  else {
+    if (isValidMove(selectedcol,selectedrow,col,row)) {
+      // make the move locally
+      
+      // disable local board
+
+      var colf = selectedcol;
+      var rowf = selectedrow;
+      var colt = col;
+      var rowt = row;
+	
+      selectedcol = "";
+      selectedrow = 0;
+
+      var xmlhttp = createXMLHttpRequest();
+      xmlhttp.onreadystatechange=function() {
+	if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	  // win response
+	}	
+      }
+      
+      xmlhttp.open("GET","gameplay.php?&t="+Math.random()+"&g="+gameid+"&q=update&colf="+colf+"&rowf="+rowf+"&colt="+colt+"&rowt="+rowt);
+      xmlhttp.send();
+    }
+    else {
+      selectedcol = "";
+      selectedrow = 0;
+    }
+  } 
 }
 
 function playGame() {
@@ -61,24 +343,19 @@ function playGame() {
       var jsonObject = eval('('+jsonText+')');
     
       if (jsonObject.status == 1) {
-	document.getElementById("gamevalue").value = jsonObject.value;
-	document.getElementById("gamevalue").innerHTML = jsonObject.value;
+	board=jsonObject.board;
+	updatePiecesOnBoard();
 // 	theMainLoop();
       }
    //   else if (jsonObject.status == 2) {
 // 	theMainLoop();
    //   }
       else if (jsonObject.status == 3) {
-	var value = parseInt(document.getElementById("gamevalue").value);
-
-	if (value > 0) document.getElementById("button1").disabled = false;
-	else document.getElementById("button1").disabled = true;
-	if (value > 1) document.getElementById("button2").disabled = false;
-	else document.getElementById("button2").disabled = true;
+	// Enable board for user
       }
       else if (jsonObject.status == 4) {
-	document.getElementById("gamevalue").value = jsonObject.value;
-	document.getElementById("gamevalue").innerHTML = jsonObject.value;
+	board = jsonObject.board;
+	updatePiecesOnBoard();
 
 	if (jsonObject.winner == username)
 	  document.getElementById("result").innerHTML = "You won!";
@@ -182,6 +459,8 @@ function setupGame() {
       username = jsonObject.username;
       gameid = parseInt(jsonObject.gameid);
       board = jsonObject.board;
+      if (username == jsonObject.white) white = true;
+      else white = false;
 
 //       var boardindex = new Array("A","B","C","D","E","F","G","H");
 //       var output="";
@@ -206,13 +485,9 @@ function setupGame() {
 </head>
 <body onload="setupGame()">
 
-<div name="gamevalue" id="gamevalue" value=-1></div> <br />
-<div name="gamebutton1" id="gamebutton1">
-<input type="button" name="button1" id="button1" value="-1" onclick="performMove(1)" />
+<div name="board" id="board">
 </div>
-<div name="gamebutton2" id="gamebutton2">
-<input type="button" name="button2" id="button2" value="-2" onclick="performMove(2)" />
-</div>
+
 <div name="result" id="result"></div>
 
 <div name="chat" id="chat">

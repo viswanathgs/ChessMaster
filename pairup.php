@@ -26,7 +26,7 @@ if ($wait == 0) {
 
     $board=getInitialBoard();
     $boardtext=implodeBoard($board);
-    $sql='INSERT INTO Games(player1, player2, turn, board, changed, winner) values("'.$username.'", "'.$opponent.'", "'.$username.'", "'.$boardtext.'", 0, "")';
+    $sql='INSERT INTO Games(player1, player2, white, turn, board, changed, winner) values("'.$username.'", "'.$opponent.'", "'.$username.'", "'.$username.'", "'.$boardtext.'", 0, "")';
     mysql_query($sql) or die('Error: '.mysql_error());
 
     $sql='SELECT gameid FROM Games WHERE player1="'.$username.'" and player2="'.$opponent.'"';

@@ -31,7 +31,7 @@ CREATE TABLE `Chats` (
   PRIMARY KEY (`messageid`),
   KEY `gameid` (`gameid`),
   KEY `username` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=129 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,12 +45,13 @@ CREATE TABLE `Games` (
   `gameid` int(11) NOT NULL AUTO_INCREMENT,
   `player1` varchar(30) DEFAULT NULL,
   `player2` varchar(30) DEFAULT NULL,
+  `white` varchar(30) DEFAULT NULL,
   `turn` varchar(30) DEFAULT NULL,
   `changed` int(11) DEFAULT NULL,
   `board` varchar(255) DEFAULT NULL,
   `winner` varchar(30) DEFAULT '',
   PRIMARY KEY (`gameid`)
-) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=89 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,19 +78,22 @@ DROP TABLE IF EXISTS `Users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Users` (
-  `username` varchar(30) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(30) NOT NULL,
+  `password` varchar(20) NOT NULL,
   `aboutme` varchar(255) DEFAULT NULL,
   `country` varchar(30) DEFAULT NULL,
-  `gamecount` int(11) DEFAULT NULL,
-  `wincount` int(11) DEFAULT NULL,
-  `losecount` int(11) DEFAULT NULL,
-  `drawcount` int(11) DEFAULT NULL,
-  `rank` int(11) DEFAULT NULL,
-  `status` varchar(10) DEFAULT NULL,
-  `gameid` int(11) DEFAULT NULL,
-  PRIMARY KEY (`username`),
+  `gamecount` int(11) NOT NULL DEFAULT '0',
+  `wincount` int(11) DEFAULT '0',
+  `losecount` int(11) DEFAULT '0',
+  `drawcount` int(11) DEFAULT '0',
+  `rank` int(11) DEFAULT '0',
+  `status` varchar(10) DEFAULT 'Normal',
+  `gameid` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
   KEY `gameid` (`gameid`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,4 +121,4 @@ CREATE TABLE `UsersHistory` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-04-15 22:31:09
+-- Dump completed on 2011-04-16 13:01:19
