@@ -64,11 +64,13 @@ if ($query == "update") {
   $board=explodeBoard($row['board']);
 
   $win=0;
-  if ($board[colt][rowt] == "WK" or $board[colt][rowt] == "BK") $win=1;
-  $board[colt][rowt]=$board[colf][rowf];
-  $board[colf][rowf]="";
+  if ($board[$colt][$rowt] == "WK" or $board[$colt][$rowt] == "BK") {
+    $win=1;
+  }
+  $board[$colt][$rowt]=$board[$colf][$rowf];
+  $board[$colf][$rowf]="";
   $boardtext=implodeBoard($board);
-  
+
   $sql='UPDATE Games SET board="'.$boardtext.'" WHERE gameid='.$gameid;
   mysql_query($sql) or die('Error: '.mysql_error());
 

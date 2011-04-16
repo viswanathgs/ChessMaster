@@ -21,6 +21,7 @@ var boardindex = new Array("A","B","C","D","E","F","G","H");
 var white;
 var selectedcol = "";
 var selectedrow = 0;
+var disabled;
 
 // function performMove(button_clicked) {
 //   var gameobj = document.getElementById("gamevalue");
@@ -294,21 +295,60 @@ function isValidMove(colf,rowf,colt,rowt) {
   return false;
 }
 
+function performMoveOnBoard(colf,rowf,colt,rowt) {
+  var piece = board[colf][rowf];
+  var colfindex = getColIndex(colf);
+  var pieceimage;
+
+  board[colt][rowt] = board[colf][rowf];
+  board[colf][rowf] = "";
+
+  document.getElementById("square"+colt+rowt).innerHTML = "<img src='images/"+piece+".gif' />";
+
+  if ((colfindex+rowf)%2 == 0) {
+    pieceimage = "W";
+  }
+  else {
+    pieceimage = "B";
+  }
+
+  document.getElementById("square"+colf+rowf).innerHTML = "<img src='images/"+pieceimage+".gif' />";
+}
+
+function selectSquareOnBoard(col,row) {
+  document.getElementById("square"+col+row).innerHTML = "";
+}
+
+function unselectSquareOnBoard(col,row) {
+  var piece = board[col][row];
+  var pieceimage;
+
+  if (piece == "") {
+    if ((getColIndex(col)+row)%2 == 0) pieceimage = "W";
+    else pieceimage = "B";
+  }
+  else {
+    pieceimage = piece;
+  }
+  document.getElementById("square"+col+row).innerHTML = "<img src='images/"+pieceimage+".gif' />";
+}
+
 function squareClicked(col,row) {
+  if (disabled) return;
   // need to call updateChat() somewhere here
 
   if (selectedcol == "" || selectedrow == 0) {
     if (isValidInitialSelection(col,row)) {
       selectedcol = col;
       selectedrow = row;
-      // make the square selected. highlight it.
+      selectSquareOnBoard(selectedcol,selectedrow);
     }
   }
   else {
     if (isValidMove(selectedcol,selectedrow,col,row)) {
-      // make the move locally
-      
-      // disable local board
+      performMoveOnBoard(selectedcol,selectedrow,col,row);
+      unselectSquareOnBoard(selectedcol,selectedrow);
+      disableBoard();
 
       var colf = selectedcol;
       var rowf = selectedrow;
@@ -321,7 +361,18 @@ function squareClicked(col,row) {
       var xmlhttp = createXMLHttpRequest();
       xmlhttp.onreadystatechange=function() {
 	if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-	  // win response
+	  var jsonText = xmlhttp.responseText;
+	  var jsonObject = eval('('+jsonText+')');
+
+	  if (jsonObject.status == 4) {
+	    board = jsonObject.board;
+	    updatePiecesOnBoard();
+
+	    if (jsonObject.winner == username)
+	      document.getElementById("result").innerHTML = "You won!";
+	    else
+	      document.getElementById("result").innerHTML = "You lost!";
+	  }
 	}	
       }
       
@@ -329,6 +380,7 @@ function squareClicked(col,row) {
       xmlhttp.send();
     }
     else {
+      unselectSquareOnBoard(selectedcol,selectedrow);
       selectedcol = "";
       selectedrow = 0;
     }
@@ -351,7 +403,7 @@ function playGame() {
 // 	theMainLoop();
    //   }
       else if (jsonObject.status == 3) {
-	// Enable board for user
+	enableBoard();
       }
       else if (jsonObject.status == 4) {
 	board = jsonObject.board;
@@ -417,39 +469,38 @@ function insertChatMessage(user,message) {
   document.getElementById("chatmessage").focus();
 }
 
-// function setupGame() {
-//   document.getElementById("gamevalue").innerHTML = 10;
-//   document.getElementById("gamevalue").value = 10;
-// 
-//   // Initially set the buttons disabled
-//   document.getElementById("button1").disabled = true;
-//   document.getElementById("button2").disabled = true;
-// 
-//   xmlhttp = createXMLHttpRequest();
-//   xmlhttp.onreadystatechange=function() {
-//     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-//       var jsonText = xmlhttp.responseText;
-//       var jsonObject = eval('('+jsonText+')');
-//       
-//       username = jsonObject.username;
-//       gameid = parseInt(jsonObject.gameid);
-//      
-//       playGame();
-//     }
-//   }
-// 
-//   xmlhttp.open("GET","gameplay.php?&t="+Math.random()+"&q=get",true);
-//   xmlhttp.send(); 
-// }
+function disableBoard() {
+//   document.getElementById("squareA1").disabled = true;
+  disabled = true;
+}
+
+function enableBoard() {
+//   document.getElementById("board").disabled = false;
+  disabled = false;
+}
+
+function updatePiecesOnBoard() {
+  var piece;
+  var pieceimage;
+
+  for (var i=1; i<=8; i++) {
+    for (var j=0; j<8; j++) {
+      piece = board[boardindex[j]][i];
+      
+      if (piece == "") {
+	if ((i+j)%2 == 0) pieceimage = "W";
+	else pieceimage = "B";
+      }
+      else {
+	pieceimage = piece;
+      }
+
+      document.getElementById("square"+boardindex[j]+i).innerHTML = "<img src='images/"+pieceimage+".gif' />";
+    }
+  }
+}
 
 function setupGame() {
-//   document.getElementById("gamevalue").innerHTML = 10;
-//   document.getElementById("gamevalue").value = 10;
-// 
-//   // Initially set the buttons disabled
-//   document.getElementById("button1").disabled = true;
-//   document.getElementById("button2").disabled = true;
-
   xmlhttp = createXMLHttpRequest();
   xmlhttp.onreadystatechange=function() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -462,17 +513,8 @@ function setupGame() {
       if (username == jsonObject.white) white = true;
       else white = false;
 
-//       var boardindex = new Array("A","B","C","D","E","F","G","H");
-//       var output="";
-//       for(var i=1; i<=8; i++) {
-// 	for(var j=0; j<8; j++) {
-// 	  
-// 	  output+=(board[boardindex[j]][i]+" ");
-// 	}
-// 	output += "\n";
-//       }
-//       alert(output);
-
+      updatePiecesOnBoard();
+      disableBoard();
       playGame();
     }
   }
@@ -483,9 +525,83 @@ function setupGame() {
 
 </script>
 </head>
-<body onload="setupGame()">
 
-<div name="board" id="board">
+<body onload="setupGame()">
+<div name="divboard" id="divboard">
+<table border="1" cellspacing="0" cellpadding="0" name="board" id="board">
+  <tr><td name="squareA8" id="squareA8" onclick="squareClicked('A',8)"></td>
+      <td name="squareB8" id="squareB8" onclick="squareClicked('B',8)"></td>
+      <td name="squareC8" id="squareC8" onclick="squareClicked('C',8)"></td>
+      <td name="squareD8" id="squareD8" onclick="squareClicked('D',8)"></td>
+      <td name="squareE8" id="squareE8" onclick="squareClicked('E',8)"></td>
+      <td name="squareF8" id="squareF8" onclick="squareClicked('F',8)"></td>
+      <td name="squareG8" id="squareG8" onclick="squareClicked('G',8)"></td>
+      <td name="squareH8" id="squareH8" onclick="squareClicked('H',8)"></td>
+  </tr>	
+  <tr><td name="squareA7" id="squareA7" onclick="squareClicked('A',7)"></td>
+      <td name="squareB7" id="squareB7" onclick="squareClicked('B',7)"></td>
+      <td name="squareC7" id="squareC7" onclick="squareClicked('C',7)"></td>
+      <td name="squareD7" id="squareD7" onclick="squareClicked('D',7)"></td>
+      <td name="squareE7" id="squareE7" onclick="squareClicked('E',7)"></td>
+      <td name="squareF7" id="squareF7" onclick="squareClicked('F',7)"></td>
+      <td name="squareG7" id="squareG7" onclick="squareClicked('G',7)"></td>
+      <td name="squareH7" id="squareH7" onclick="squareClicked('H',7)"></td>
+  </tr>	  
+  <tr><td name="squareA6" id="squareA6" onclick="squareClicked('A',6)"></td>
+      <td name="squareB6" id="squareB6" onclick="squareClicked('B',6)"></td>
+      <td name="squareC6" id="squareC6" onclick="squareClicked('C',6)"></td>
+      <td name="squareD6" id="squareD6" onclick="squareClicked('D',6)"></td>
+      <td name="squareE6" id="squareE6" onclick="squareClicked('E',6)"></td>
+      <td name="squareF6" id="squareF6" onclick="squareClicked('F',6)"></td>
+      <td name="squareG6" id="squareG6" onclick="squareClicked('G',6)"></td>
+      <td name="squareH6" id="squareH6" onclick="squareClicked('H',6)"></td>
+  </tr>	  
+  <tr><td name="squareA5" id="squareA5" onclick="squareClicked('A',5)"></td>
+      <td name="squareB5" id="squareB5" onclick="squareClicked('B',5)"></td>
+      <td name="squareC5" id="squareC5" onclick="squareClicked('C',5)"></td>
+      <td name="squareD5" id="squareD5" onclick="squareClicked('D',5)"></td>
+      <td name="squareE5" id="squareE5" onclick="squareClicked('E',5)"></td>
+      <td name="squareF5" id="squareF5" onclick="squareClicked('F',5)"></td>
+      <td name="squareG5" id="squareG5" onclick="squareClicked('G',5)"></td>
+      <td name="squareH5" id="squareH5" onclick="squareClicked('H',5)"></td>
+  </tr>	  
+ <tr> <td name="squareA4" id="squareA4" onclick="squareClicked('A',4)"></td>
+      <td name="squareB4" id="squareB4" onclick="squareClicked('B',4)"></td>
+      <td name="squareC4" id="squareC4" onclick="squareClicked('C',4)"></td>
+      <td name="squareD4" id="squareD4" onclick="squareClicked('D',4)"></td>
+      <td name="squareE4" id="squareE4" onclick="squareClicked('E',4)"></td>
+      <td name="squareF4" id="squareF4" onclick="squareClicked('F',4)"></td>
+      <td name="squareG4" id="squareG4" onclick="squareClicked('G',4)"></td>
+      <td name="squareH4" id="squareH4" onclick="squareClicked('H',4)"></td>
+  </tr>
+  <tr><td name="squareA3" id="squareA3" onclick="squareClicked('A',3)"></td>
+      <td name="squareB3" id="squareB3" onclick="squareClicked('B',3)"></td>
+      <td name="squareC3" id="squareC3" onclick="squareClicked('C',3)"></td>
+      <td name="squareD3" id="squareD3" onclick="squareClicked('D',3)"></td>
+      <td name="squareE3" id="squareE3" onclick="squareClicked('E',3)"></td>
+      <td name="squareF3" id="squareF3" onclick="squareClicked('F',3)"></td>
+      <td name="squareG3" id="squareG3" onclick="squareClicked('G',3)"></td>
+      <td name="squareH3" id="squareH3" onclick="squareClicked('H',3)"></td>
+  </tr>
+  <tr><td name="squareA2" id="squareA2" onclick="squareClicked('A',2)"></td>
+      <td name="squareB2" id="squareB2" onclick="squareClicked('B',2)"></td>
+      <td name="squareC2" id="squareC2" onclick="squareClicked('C',2)"></td>
+      <td name="squareD2" id="squareD2" onclick="squareClicked('D',2)"></td>
+      <td name="squareE2" id="squareE2" onclick="squareClicked('E',2)"></td>
+      <td name="squareF2" id="squareF2" onclick="squareClicked('F',2)"></td>
+      <td name="squareG2" id="squareG2" onclick="squareClicked('G',2)"></td>
+      <td name="squareH2" id="squareH2" onclick="squareClicked('H',2)"></td>
+  </tr>	
+  <tr><td name="squareA1" id="squareA1" onclick="squareClicked('A',1)"></td>
+      <td name="squareB1" id="squareB1" onclick="squareClicked('B',1)"></td>
+      <td name="squareC1" id="squareC1" onclick="squareClicked('C',1)"></td>
+      <td name="squareD1" id="squareD1" onclick="squareClicked('D',1)"></td>
+      <td name="squareE1" id="squareE1" onclick="squareClicked('E',1)"></td>
+      <td name="squareF1" id="squareF1" onclick="squareClicked('F',1)"></td>
+      <td name="squareG1" id="squareG1" onclick="squareClicked('G',1)"></td>
+      <td name="squareH1" id="squareH1" onclick="squareClicked('H',1)"></td>
+  </tr>	
+</table>
 </div>
 
 <div name="result" id="result"></div>
