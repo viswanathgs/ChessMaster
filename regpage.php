@@ -41,8 +41,11 @@ function chk()
 			  $("#info").html("Username already taken"); 
 		  else if (data == 2)
 			  $("#info").html("Username cannot be blank");
-		  else
-			  $("#info").html("Username available");
+		  else {
+			  $("#info").html("Username "+$("#username").val()+" is available");
+			  $("#info").css("color","green");
+		  }
+    
   })  
 }
 
@@ -50,8 +53,12 @@ function password_check() {
   $("#infopass").fadeOut("fast");
   $("#infopass").fadeIn("fast");
   
-  if ($("#password").val() == $("#cpassword").val()) {
+  if ($("#password").val() == "") {
+    $("#infopass").html("Password cannot be blank");
+  }
+  else if ($("#password").val() == $("#cpassword").val()) {
     $("#infopass").html("Passwords match");
+    $("#infopass").css("color","green");
   }
   else {
     $("#infopass").html("Passwords do not match");
@@ -95,31 +102,39 @@ function password_check() {
 <div class="logindiv">
 
 <span id="globalvar"></span>
-<form action="login.php" method="post" onsubmit="return insert_into_db();">
-<table class="logintable">
-<tr><td>
-<label for="username"><p>
-Username </p></label><input type="text" name="username" id="username" onblur="chk()"/> <div id="info" class="info"></div>
-</td></tr>
-<tr><td>
-<label for="password"><p>
-Password</p></label> <input type="password" name="password" id="password" /></td></tr>
-<tr><td>
-<label for="cpassword"><p>
-Confirm Password</p></label> <input type="password" name="cpassword" id="cpassword" onblur="password_check()"/> <div id="infopass" class="info"></div>
-</td></tr>
-<tr><td>
-<label for="aboutme"><p>
-About Me</p></label> <textarea name="aboutme" id="aboutme"></textarea><br /></td></tr>
-<tr><td>
-<label for="country"><p>
-Country</p></label> <input type="text" name="country" id="country" /></td></tr>
-<tr><td>
-<input type="submit" value="Create account"/></td></tr>
 
- <div id="error_info" class="info"> </div>
-</table>
+<div id="error_info" class="info"> </div>
+<form action="login.php" method="post" onsubmit="return insert_into_db();">
+<!--<table class="logintable">-->
+<!--<tr><td>-->
+<fieldset name="loginfield" id="loginfield"><legend>Registration</legend>
+<label class="reg" for="username">
+Username </label><input class="reg" type="text" name="username" id="username" onblur="chk()"/> <div id="info" class="infolocal"></div>
+<!--</td></tr>-->
+<!--<tr><td>-->
+<br /><br />
+<label class="reg" for="password">
+Password</label> <input class="reg" type="password" name="password" id="password" /><!--</td></tr>-->
+<!--<tr><td>-->
+<br />
+<label class="reg" for="cpassword">
+Confirm Password</label> <input class="reg" type="password" name="cpassword" id="cpassword" onblur="password_check()"/> <div id="infopass" class="infolocal"></div>
+<!--</td></tr>-->
+<!--<tr><td>-->
+<br /><br />
+<label class="reg" for="country">
+Country</label> <input class="reg" type="text" name="country" id="country" /><!--</td></tr>-->
+<!--<tr><td>-->
+<br /><br />
+<label class="reg" for="aboutme">
+About Me</label> <textarea class="reg" name="aboutme" id="aboutme" rows="5" cols="25"></textarea><br /><!--</td></tr>-->
+<!--<tr><td>-->
+<label class="reg" for="submit">&nbsp;</label>
+<input class="reg" name="submit" type="submit" value="Register"/><!--</td></tr>-->
+</fieldset>
+<!--</table>-->
  </form>
+
 </div>
 </div>
 </div>

@@ -72,7 +72,6 @@ function register() {
 <div id="val"></div>
 <span id="globalvar"></span>
 <form autocomplete="on" method="POST" action="login.php" onsubmit="return chk();">
-
 <table class="logintable">
 <tr><td>
 <label for="username"><p>
