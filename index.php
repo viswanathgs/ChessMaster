@@ -36,7 +36,15 @@ function chk_callback(x)
 }
 
 function goToLogin() {
-  window.location = "login.php?username="+$("#username").val();
+  $.ajax({
+    type: "POST",
+    url: "login.php",
+    async:false,
+    data: "username=" + $("#username").val(),
+    success: function(data){
+      window.location = "profile.php";
+    }
+  });
 }
 
 function chk()
@@ -76,13 +84,15 @@ function register() {
 <div id="outer">
 
 <div id="header">
-<img src="images/logo.png" />
+<a href="index.php"><img border="0" src="images/logo.png" /></a>
 </div>
 
 <div id="main">
 <div class="logindiv" id="logindiv">
 <div id="val"></div>
 <span id="globalvar"></span>
+
+<fieldset class="loginfield"><legend>Login</legend>
 <form autocomplete="on" method="POST" action="login.php" onsubmit="return chk();">
 <table class="logintable">
 <tr><td>
@@ -101,7 +111,7 @@ Password </label></p><input name="password" id="password" type="password" />
 </td>
 </tr>
 </table>
-</form>
+</form></fieldset>
 </div>
 </div>
 </div>

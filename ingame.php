@@ -10,6 +10,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
 <head>
+
+<title>ChessMaster Club - Ingame</title>
+
+<link rel="stylesheet" type="text/css" href="css/common.css"/>
+<link rel="stylesheet" type="text/css" href="css/ingame.css"/>
+
 <script language="javascript" type="text/javascript" src="jquery.js"></script>
 <script language="javascript" type="text/javascript" src="common.js"></script>
 
@@ -19,6 +25,7 @@ var gameid;
 var board;
 var boardindex = new Array("A","B","C","D","E","F","G","H");
 var white;
+var opponent;
 var selectedcol = "";
 var selectedrow = 0;
 var disabled;
@@ -336,8 +343,10 @@ function squareClicked(col,row) {
 
 	    if (jsonObject.winner == username)
 	      document.getElementById("result").innerHTML = "You won!";
-	    else
+	    else if (jsonObject.winner == opponent)
 	      document.getElementById("result").innerHTML = "You lost!";
+	    else
+	      document.getElementById("result").innerHTML = "Opponent has left";
 	  }
 	}	
       }
@@ -363,11 +372,7 @@ function playGame() {
       if (jsonObject.status == 1) {
 	board=jsonObject.board;
 	updatePiecesOnBoard();
-// 	theMainLoop();
       }
-   //   else if (jsonObject.status == 2) {
-// 	theMainLoop();
-   //   }
       else if (jsonObject.status == 3) {
 	enableBoard();
       }
@@ -377,8 +382,10 @@ function playGame() {
 
 	if (jsonObject.winner == username)
 	  document.getElementById("result").innerHTML = "You won!";
-	else
+	else if (jsonObject.winner == opponent)
 	  document.getElementById("result").innerHTML = "You lost!";
+	else
+	  document.getElementById("result").innerHTML = "Opponent has left";
       }
 
       setTimeout(updateChat,500);
@@ -437,11 +444,21 @@ function insertChatMessage(user,message) {
 
 function disableBoard() {
 //   document.getElementById("squareA1").disabled = true;
+  if ($("#result").html() == "You" || $("#result").html() == "") {
+    $("#result").html("Opponent");
+    $("#result").fadeOut('slow');
+    $("#result").fadeIn('slow');
+  }
   disabled = true;
 }
 
 function enableBoard() {
 //   document.getElementById("board").disabled = false;
+  if ($("#result").html() == "Opponent" || $("#result").html() == "") {
+    $("#result").html("You");
+    $("#result").fadeOut('slow');
+    $("#result").fadeIn('slow');
+  }
   disabled = false;
 }
 
@@ -476,8 +493,18 @@ function setupGame() {
       username = jsonObject.username;
       gameid = parseInt(jsonObject.gameid);
       board = jsonObject.board;
+      opponent = jsonObject.opponent;
       if (username == jsonObject.white) white = true;
       else white = false;
+
+      if (white) {
+	$("#piececolor").html("White");
+      }
+      else {
+	$("#piececolor").html("Black");
+      }
+
+      $("#boardlegend").html(username+" vs "+opponent);
 
       updatePiecesOnBoard();
       disableBoard();
@@ -500,11 +527,18 @@ function endGame() {
   });
 }
 
+function leaveGame() {
+  endGame();
+  window.location = "profile.php";
+}
+
 </script>
 </head>
 
 <body onload="setupGame()" onbeforeunload="endGame()">
+
 <div name="divboard" id="divboard">
+<fieldset id="fieldboard" class="gamefield"><legend id="boardlegend"></legend>
 <table border="1" cellspacing="0" cellpadding="0" name="board" id="board">
   <tr><td name="squareA8" id="squareA8" onclick="squareClicked('A',8)"></td>
       <td name="squareB8" id="squareB8" onclick="squareClicked('B',8)"></td>
@@ -579,15 +613,23 @@ function endGame() {
       <td name="squareH1" id="squareH1" onclick="squareClicked('H',1)"></td>
   </tr>	
 </table>
+</fieldset>
 </div>
 
+<div id="right">
+<div name="piececolor" id="piececolor"></div>
 <div name="result" id="result"></div>
-
-<div name="chat" id="chat">
-  <h3>Chat</h3>
-  <iframe id="chatframe" name="chatframe" src="chat_contents.html"></iframe>
-  <input type="text" name="chatmessage" id="chatmessage" style="width: 250px" onkeydown="if (event.keyCode == 13) document.getElementById('chatsend').click()"/>
-  <input type="button" value="Send" class="submit" name="chatsend" id="chatsend" onclick="postChat()"/>
+<div name="quitgame" id="quitgame">
+<input type="button" onclick="leaveGame()" value="Leave Arena" />
+</div>
+<div name="divchat" id="divchat">
+<fieldset class="chatfield"><legend>Chat</legend>
+  <iframe id="chatframe" name="chatframe" src="chat_contents.html" style="background: white;"></iframe>
+  <br />
+  <input type="text" name="chatmessage" id="chatmessage" style="width: 250px" onkeydown="if (event.keyCode == 13) document.getElementById('chatsend').click()" />
+  <input type="button" value="Send" class="submit" name="chatsend" id="chatsend" onclick="postChat()" />
+</fieldset>
+</div>
 </div>
 
 </body>

@@ -69,7 +69,7 @@ function password_check() {
 
  function insert_into_db()
  {
- 	$.ajax({
+  $.ajax({
    type: "POST",
    url: "userreg.php",
    async:false,
@@ -97,7 +97,7 @@ function password_check() {
 <div id="outer">
 
 <div id="header">
-<img src="images/logo.png" />
+<a href="index.php"><img border="0" src="images/logo.png" /></a>
 </div>
 
 <div id="main">
@@ -105,11 +105,11 @@ function password_check() {
 
 <span id="globalvar"></span>
 
-<div id="error_info" class="info"> </div>
 <form action="login.php" method="post" onsubmit="return insert_into_db();">
 <!--<table class="logintable">-->
 <!--<tr><td>-->
-<fieldset name="loginfield" id="loginfield"><legend>Registration</legend>
+<fieldset name="loginfield" id="loginfield" class="loginfield"><legend>Registration</legend>
+<div id="error_info" class="info"> </div>
 <label class="reg" for="username">
 Username </label><input class="reg" type="text" name="username" id="username" onblur="chk()"/> <div id="info" class="infolocal"></div>
 <!--</td></tr>-->

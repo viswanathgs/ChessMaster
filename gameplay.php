@@ -99,8 +99,11 @@ if ($query == "get") {
   $row=mysql_fetch_array($result);
   $board=explodeBoard($row['board']);
   $white=$row['white'];
+  $opponent="";
+  if ($row['player1'] == $username) $opponent=$row['player2'];
+  else $opponent=$row['player1'];
 
-  $response=array("username"=>$username, "gameid"=>$gameid, "board"=>$board, "white"=>$white);
+  $response=array("username"=>$username, "gameid"=>$gameid, "board"=>$board, "white"=>$white, "opponent"=>$opponent);
 }
 
 echo json_encode($response);

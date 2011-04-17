@@ -10,6 +10,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
 <head>
 
+<title>ChessMaster Club - Profile</title>
+
 <link rel="stylesheet" type="text/css" href="css/common.css"/>
 <link rel="stylesheet" type="text/css" href="css/profile.css"/>
 
@@ -19,6 +21,9 @@
 <script language="javascript" type="text/javascript">
 var username;
 var gameid;
+var gamecount, wincount, losecount, drawcount, rank;
+var aboutme, country;
+var usershistory;
 
 function beginGame() {
   window.location = "ingame.php";
@@ -37,7 +42,6 @@ function pairUpCallback() {
 	setTimeout(pairUpCallback,1000);
       }
       else {
-	document.getElementById("status").innerHTML = "Paired up with "+opponent;
 	beginGame();
       }
     }
@@ -47,9 +51,9 @@ function pairUpCallback() {
   xmlhttp.send();
 }
 
-function pairUp(user) {
-  username = user;
-  document.getElementById("status").innerHTML = "Waiting for an opponent...";
+function pairUp() {
+  document.getElementById("startbutton").value = "Waiting for an opponent...";
+  document.getElementById("startbutton").disabled = true;
 
   var xmlhttp = createXMLHttpRequest();
   xmlhttp.onreadystatechange=function() {
@@ -63,7 +67,6 @@ function pairUp(user) {
 	pairUpCallback();
       }
       else {
-	document.getElementById("status").innerHTML = "Paired up with "+opponent;
 	beginGame();
       }
     }
@@ -72,18 +75,167 @@ function pairUp(user) {
   xmlhttp.open("GET","pairup.php?&t="+Math.random()+"&wait=0",true);
   xmlhttp.send();
 }
+
+function setInfo() {
+  $("#profilelegend").html(username);
+  $("#profilegamecount").html(gamecount);
+  $("#profilewincount").html(wincount);
+  $("#profilelosecount").html(losecount);
+  $("#profiledrawcount").html(drawcount);
+  $("#profileshell").html("abc");
+  $("#profileaboutme").html("<div class='profileshell'>["+username+"@chessmaster]$ </div>"+aboutme);
+
+  $("#historylegend").html(username+"'s history");
+
+  var historytable = "";
+  var alt = 0;
+  for (var key in usershistory) {
+    if (usershistory.hasOwnProperty(key)) {
+      historytable += "<tr class='row"+alt+"' ><td>"+usershistory[key].opponent+"</td><td>"+usershistory[key].result+"</td><td>"+usershistory[key].playedon+"</td></tr>";
+      alt = 1-alt;
+    }
+  }
+  $("#historytablebody").html(historytable);
+
+  $("#profile").children().show('slow');
+  $("#history").children().show('slow');
+}
+
+function initHistory() {
+  $.ajax({
+    type: "GET",
+    async: false,
+    url: "profileinfo.php",
+    data: "q=history",
+    success: function(data) {
+      usershistory = eval('('+data+')');
+      setInfo();
+    }
+  });
+}
+
+function initInfo() {
+  $("#profile").children().hide();
+  $("#history").children().hide();
+
+  $.ajax({
+    type: "GET",
+    async: false,
+    url: "profileinfo.php",
+    data: "q=user",
+    success: function(data) {
+      var jsonObject = eval('('+data+')');
+ 
+      username = jsonObject.username;
+      country = jsonObject.country;
+      aboutme = jsonObject.aboutme;
+      gamecount = parseInt(jsonObject.gamecount);
+      wincount = parseInt(jsonObject.wincount);
+      losecount = parseInt(jsonObject.losecount);
+      drawcount = parseInt(jsonObject.drawcount);
+      rank = parseInt(jsonObject.rank);
+      
+      initHistory();
+    }
+  });
+}
+
+function mouseOverButton() {
+  document.getElementById("startbutton").style.backgroundColor = "#666666";
+  document.getElementById("startbutton").style.borderTopColor = "#666666";
+  document.getElementById("startbutton").style.borderBottomColor = "#666666";
+  document.getElementById("startbutton").style.borderLeftColor = "#777777";
+  document.getElementById("startbutton").style.borderRightColor = "#888888";
+}
+
+function mouseOutButton() {
+  document.getElementById("startbutton").style.backgroundColor = "#999999";
+  document.getElementById("startbutton").style.borderTopColor = "#999999";
+  document.getElementById("startbutton").style.borderBottomColor = "#999999";
+  document.getElementById("startbutton").style.borderLeftColor = "#AAAAAA";
+  document.getElementById("startbutton").style.borderRightColor = "#BBBBBB";
+}
+
+function logout() {
+  $.ajax({
+    type: "GET",
+    async: false,
+    url: "logout.php",
+    success: function(data) {
+      window.location = "index.php";
+    }
+  });
+}
+
+function dummyFunction() {
+  return true;
+}
+
+function pageExit() {
+  $("#profile").children().hide('slow');
+  $("#history").children().hide('slow');
+  setTimeout(dummyFunction, 500);
+}
+
 </script>
 </head>
 
-<body>
-<h2> <?php echo 'User '.$_SESSION['username'] ?> </h2>
+<body onload="initInfo()" onbeforeunload="pageExit()">
 
-<?php 
-  $username=$_SESSION['username'];
-  echo "<input type='button' name='pairup' id='pairup' value='Pair Up' onclick='pairUp(\"".$username."\")' /> <br/>";
-?>
+<div class="topright">
+<a href="#" onclick="logout(); return false;">Logout</a>
+</div>
 
-<div name="status" id="status"></div> <br />
+<div id="outer">
+<div id="header">
+<a href="index.php"><img border="0" src="images/logo.png" /></a>
+</div>
+
+<div class="right" id="startgame">
+<input type="button" onclick="pairUp()" value="Enter Arena" id="startbutton" onMouseOver="mouseOverButton()" onMouseOut="mouseOutButton()"/>
+<div name="status" id="status"></div>
+</div>
+
+<div id="main">
+<div id="profile" class="logindiv">
+<fieldset class="loginfield"> <legend id="profilelegend"></legend>
+
+<div id="profileaboutme" class="profileaboutme"></div>
+<br />
+<div class="profileleft">Matches Played</div><div class="profileright" id="profilegamecount"></div><br /><br />
+<div class="profileleft">Wins</div><div class="profileright" id="profilewincount"></div><br /><br />
+<div class="profileleft">Losses</div><div class="profileright" id="profilelosecount"></div><br /><br />
+<div class="profileleft">Draws</div><div class="profileright" id="profiledrawcount"></div><br /><br />
+
+</fieldset>
+</div>
+<div class="_blank">&nbsp;</div>
+<div id="history" class="logindiv">
+<fieldset class="loginfield"><legend id="historylegend"></legend>
+
+<div class="scrollTableHeader">
+<table cellspacing="2px">
+<thead>
+<tr>
+<th>Opponent</th>
+<th>Result</th>
+<th>Timestamp</th>
+</tr>
+</thead>
+</table>
+</div>
+
+<div class="scrollTableContainer">
+<table id="historytable" class="historytable" cellspacing="2px">
+<tbody id="historytablebody">
+
+</tbody>
+</table>
+</div>
+</fieldset>
+</div>
+</div>
+</div>
 
 </body>
 </html>

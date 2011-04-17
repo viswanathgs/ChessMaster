@@ -1,0 +1,54 @@
+div#divboard {
+  margin-top: 50px;
+  margin-left: 200px;
+  float: left;
+}
+
+div#right {
+  margin-top: 50px;
+  margin-left: 100px;
+  float: left; 
+}
+
+div#divchat {
+  margin-top: 50px;
+}
+
+div#result {
+  font-family: Veranda;
+  font-size: 30px;
+  color: red;
+  
+  margin-top: 30px;
+  text-align: center;
+}
+
+div#piececolor {
+  text-align: center;
+  font-family: "Times New Roman";
+  font-weight: bold;
+  font-size: 60px;
+}
+
+div#quitgame {
+  
+}
+
+fieldset.chatfield {
+  border: 1px #CCCCCC solid;
+}
+
+fieldset.chatfield legend {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+fieldset.gamefield {
+  border: 1px #CCCCCC solid;
+}
+
+fieldset.gamefield legend {
+  font-size: 30px;
+  font-family: "Arial";
+  color: #777777;
+}

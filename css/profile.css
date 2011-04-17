@@ -1,0 +1,74 @@
+div.scrollTableContainer {
+  overflow: auto;
+  width: 450px;
+  text-align: center;
+  height: 200px;
+  position: relative;
+}
+
+div.scrollTableHeader {
+  width: 400px;
+}
+
+div.scrollTableHeader table {
+  width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+div.scrollTableContainer table {
+  width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+div.scrollTableContainer table tbody {
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+div.scrollTableContainer thead tr {
+  position: relative;
+  left: 0px;
+}
+
+div.scrollTableContainer td {
+  width: 33%;
+}
+
+div.scrollTableContainer tr.row0 {
+  background: #C0C8CC;
+}
+
+div.scrollTableContainer tr.row1 {
+  background: #E6F0F5;
+}
+
+div#startgame {
+  margin-right: 100px;
+  float: right;
+}
+
+#startbutton {
+  font-size:14px;
+  font-family: Helevetica;
+  text-align:left;
+  color:#FFFFFF;
+  width:200px;
+  height:70px;
+  background-color:#999999;
+  border-top-style:solid;
+  border-top-color:#999999;
+  border-top-width:1px;
+  border-bottom-style:solid;
+  border-bottom-color:#999999;
+  border-bottom-width:1px;
+  border-left-style:solid;
+  border-left-color:#AAAAAA;
+  border-left-width:6px;
+  border-right-style:solid;
+  border-right-color:#BBBBBB;
+  border-right-width:6px;
+}

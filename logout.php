@@ -2,7 +2,9 @@
   require_once("db_config.php");
   require_once("session_config.php");
 
-  $_SESSION['username']=$_POST['username'];
+  if (!isset($_SESSION['username'])) {
+    unset($_SESSION['username']);
+  }
 
   echo "";
 ?>

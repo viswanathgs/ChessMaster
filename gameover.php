@@ -36,11 +36,16 @@
     $sql='UPDATE Users SET wincount='.$wincount.' WHERE username="'.$username.'"';
     mysql_query($sql) or die('Error: '.mysql_error());
   }
-  else if ($winner == "") {
+  else if ($winner == "" || $winner == "Draw") {
     $result="Draw";
     $drawcount=$drawcount+1;
     $sql='UPDATE Users SET drawcount='.$drawcount.' WHERE username="'.$username.'"';
     mysql_query($sql) or die('Error: '.mysql_error());
+
+    if ($winner != "Draw") {
+      $sql='UPDATE Games SET winner="Draw" WHERE gameid='.$gameid;
+      mysql_query($sql) or die('Error: '.mysql_error());
+    }
   }
   else {
     $result="Lost";

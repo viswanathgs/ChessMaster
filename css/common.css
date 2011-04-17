@@ -13,6 +13,7 @@ body {
   border: 1px outset;
   border-radius: 15px;
   -moz-border-radius:15px; /* Firefox 3.6 and earlier */
+  width: 500px;
 }
 
 div#outer {
@@ -31,7 +32,6 @@ div.info {
   color: red;
   font-family: Georgia;
   font-size: 12px;
-  /*float: right;*/
 }
 
 div.infolocal {
@@ -49,11 +49,9 @@ table.logintable {
 }
 
 fieldset.loginfield {
-  -moz-border-radius: 7px;
-  border: 1px #dddddd solid;
-  padding: 10px;
-  width: 550px;
-  margin-top: 10px;
+  -moz-border-radius: 15px;
+  border: 1px #bbbbbb solid;
+  border-radius: 15px;
 }
 
 fieldset.loginfield legend {
@@ -62,7 +60,7 @@ fieldset.loginfield legend {
   
   font-family: Veranda;
   font-weight: none;
-  font-size: 13px;
+  font-size: 15px;
   
   padding-right: 5px;
   padding-left: 5px;
@@ -71,6 +69,7 @@ fieldset.loginfield legend {
   
   -moz-border-radius: 3px;
   border-radius: 3px;
+  text-align: left;
 }
 
 label.reg {
@@ -85,4 +84,51 @@ input.reg, textarea.reg {
   margin: 5px;
   padding: 0px;
   float: left;
+}
+
+div.profileleft {
+  width: 140px;
+  padding-left: 10px;
+  margin: 0px;
+  float: left; 
+  text-align: left;
+  font-size: 15px;
+  color: #4356ab;
+}
+
+div.profileright {
+  margin: 2px;
+  padding: 0px;
+  float: left;
+}
+
+div.profileaboutme {
+  float: right;
+  width: 50%;
+  height: 140px;
+  text-align: left;
+  margin: 5px;
+  border: none;
+  padding: 10px;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  
+  background: #000000;
+  color: #FFFFFF;
+  font-family: Monospace;
+  font-size: 12px;
+}
+
+div.profileshell {
+  font-family: Monospace;
+  font-size: 12px;
+  color: #8BDB4D;
+}
+
+div.topright{
+  display:block;
+  font-size: 15px;
+  position:absolute;
+  top: 20px;
+  right: 40px;
 }
