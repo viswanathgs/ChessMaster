@@ -532,6 +532,22 @@ function leaveGame() {
   window.location = "profile.php";
 }
 
+function mouseOverButton() {
+  document.getElementById("quitbutton").style.backgroundColor = "#666666";
+  document.getElementById("quitbutton").style.borderTopColor = "#666666";
+  document.getElementById("quitbutton").style.borderBottomColor = "#666666";
+  document.getElementById("quitbutton").style.borderLeftColor = "#777777";
+  document.getElementById("quitbutton").style.borderRightColor = "#888888";
+}
+
+function mouseOutButton() {
+  document.getElementById("quitbutton").style.backgroundColor = "#999999";
+  document.getElementById("quitbutton").style.borderTopColor = "#999999";
+  document.getElementById("quitbutton").style.borderBottomColor = "#999999";
+  document.getElementById("quitbutton").style.borderLeftColor = "#AAAAAA";
+  document.getElementById("quitbutton").style.borderRightColor = "#BBBBBB";
+}
+
 </script>
 </head>
 
@@ -620,7 +636,7 @@ function leaveGame() {
 <div name="piececolor" id="piececolor"></div>
 <div name="result" id="result"></div>
 <div name="quitgame" id="quitgame">
-<input type="button" onclick="leaveGame()" value="Leave Arena" />
+<input type="button" onclick="leaveGame()" value="Leave Arena" id="quitbutton" onMouseOver="mouseOverButton()" onMouseOut="mouseOutButton()" />
 </div>
 <div name="divchat" id="divchat">
 <fieldset class="chatfield"><legend>Chat</legend>

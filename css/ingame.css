@@ -31,7 +31,8 @@ div#piececolor {
 }
 
 div#quitgame {
-  
+  text-align: center;
+  margin-top: 30px;
 }
 
 fieldset.chatfield {
@@ -51,4 +52,26 @@ fieldset.gamefield legend {
   font-size: 30px;
   font-family: "Arial";
   color: #777777;
+}
+
+#quitbutton {
+  font-size:14px;
+  font-family: Helevetica;
+  text-align:left;
+  color:#FFFFFF;
+  width:200px;
+  height:70px;
+  background-color:#999999;
+  border-top-style:solid;
+  border-top-color:#999999;
+  border-top-width:1px;
+  border-bottom-style:solid;
+  border-bottom-color:#999999;
+  border-bottom-width:1px;
+  border-left-style:solid;
+  border-left-color:#AAAAAA;
+  border-left-width:6px;
+  border-right-style:solid;
+  border-right-color:#BBBBBB;
+  border-right-width:6px;
 }
