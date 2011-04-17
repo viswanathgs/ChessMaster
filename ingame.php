@@ -489,10 +489,21 @@ function setupGame() {
   xmlhttp.send(); 
 }
 
+function endGame() {
+  $.ajax({
+    type: "POST",
+    url: "gameover.php",
+    async: false,
+    data: "g="+gameid,
+    success: function(data) {
+    }
+  });
+}
+
 </script>
 </head>
 
-<body onload="setupGame()">
+<body onload="setupGame()" onbeforeunload="endGame()">
 <div name="divboard" id="divboard">
 <table border="1" cellspacing="0" cellpadding="0" name="board" id="board">
   <tr><td name="squareA8" id="squareA8" onclick="squareClicked('A',8)"></td>
