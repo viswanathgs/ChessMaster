@@ -210,7 +210,7 @@ function isValidMoveBishop(colf,rowf,colt,rowt) {
     var rown = rowf+dx[i];
     var colnindex = colfindex+dy[i];
 
-    while (rown<=8 && colnindex<8 && (board[boardindex[colnindex]][rown] == "" || board[boardindex[colnindex]][rown].charAt(0) != piecef.charAt(0))) {
+    while (rown>0 && rown<=8 && colnindex>=0 && colnindex<8 && (board[boardindex[colnindex]][rown] == "" || board[boardindex[colnindex]][rown].charAt(0) != piecef.charAt(0))) {
       if (rown == rowt && colnindex == coltindex)
 	return true;
       if (board[boardindex[colnindex]][rown] != "")
