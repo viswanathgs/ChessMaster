@@ -528,7 +528,6 @@ function endGame() {
 }
 
 function leaveGame() {
-  endGame();
   window.location = "profile.php";
 }
 
