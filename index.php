@@ -4,6 +4,11 @@
   if (isset($_SESSION['username'])) {
     unset($_SESSION['username']);
   }
+
+  if (isset($_COOKIE['username'])) {
+    $_SESSION['username'] = $_COOKIE['username'];
+    header("Location: profile.php");
+  }
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -36,11 +41,15 @@ function chk_callback(x)
 }
 
 function goToLogin() {
+  var remember = "";
+  if (document.getElementById("remember").checked) remember = "yes";
+  else remember = "no";
+
   $.ajax({
     type: "POST",
     url: "login.php",
     async:false,
-    data: "username=" + $("#username").val(),
+    data: "username=" + $("#username").val() +"&remember="+remember,
     success: function(data){
       window.location = "profile.php";
     }
@@ -105,6 +114,11 @@ Password </label></p><input name="password" id="password" type="password" />
 </td></tr>
 <tr><td></td></tr>
 <div id="info" class="info"></div>
+
+<tr><td>
+<input type="checkbox" value="yes" name="remember" id="remember" />Remember Me<br />
+</td></tr>
+
 <tr><td>
 <input type="button" value="Login" onclick="chk()"/>
 <input type="button" onclick="register()" value="Register" />

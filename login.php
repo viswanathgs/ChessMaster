@@ -4,5 +4,9 @@
 
   $_SESSION['username']=$_POST['username'];
 
+  if (isset($_POST['remember']) and $_POST['remember'] == "yes") {
+    setcookie("username", $_SESSION['username'], time()+3600);
+  }
+
   echo "";
 ?>
