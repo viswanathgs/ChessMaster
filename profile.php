@@ -9,8 +9,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
 <head>
+
+<link rel="stylesheet" type="text/css" href="css/common.css"/>
+<link rel="stylesheet" type="text/css" href="css/profile.css"/>
+
 <script language="javascript" type="text/javascript" src="jquery.js"></script>
-<script language="javascript" type="text/javascript" src="ajax.js"></script>
+<script language="javascript" type="text/javascript" src="common.js"></script>
 
 <script language="javascript" type="text/javascript">
 var username;

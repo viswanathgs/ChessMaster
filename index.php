@@ -15,7 +15,9 @@
 
 <link rel="stylesheet" type="text/css" href="css/common.css"/>
 
-<script type="text/javascript" src="jquery.js"></script>
+<script language="javascript" type="text/javascript" src="jquery.js"></script>
+<script language="javascript" type="text/javascript" src="common.js"></script>
+
 <script type="text/javascript">
 var retval;
 function init()
@@ -33,6 +35,10 @@ function chk_callback(x)
   }
 }
 
+function goToLogin() {
+  window.location = "login.php?username="+$("#username").val();
+}
+
 function chk()
 {
   var retval;
@@ -47,14 +53,20 @@ function chk()
       $("#globalvar").html(data);
     }
   });
-  if($("#globalvar").html() == "false")
-    return false;
-  else
-    return true;
+
+  if($("#globalvar").html() == "true") {
+    $("#logindiv").children().hide('slow');
+    setTimeout(goToLogin,500);
+  }
+}
+
+function goToRegpage() {
+  window.location="regpage.php";
 }
  
 function register() {
- window.location="regpage.php";
+  $("#logindiv").children().hide('slow');
+  setTimeout(goToRegpage,500);
 }
 </script>
 
@@ -68,7 +80,7 @@ function register() {
 </div>
 
 <div id="main">
-<div class="logindiv">
+<div class="logindiv" id="logindiv">
 <div id="val"></div>
 <span id="globalvar"></span>
 <form autocomplete="on" method="POST" action="login.php" onsubmit="return chk();">
@@ -84,7 +96,7 @@ Password </label></p><input name="password" id="password" type="password" />
 <tr><td></td></tr>
 <div id="info" class="info"></div>
 <tr><td>
-<input type="submit" value="Login" />
+<input type="button" value="Login" onclick="chk()"/>
 <input type="button" onclick="register()" value="Register" />
 </td>
 </tr>

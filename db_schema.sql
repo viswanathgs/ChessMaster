@@ -31,7 +31,7 @@ CREATE TABLE `Chats` (
   PRIMARY KEY (`messageid`),
   KEY `gameid` (`gameid`),
   KEY `username` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=143 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=145 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,7 +51,7 @@ CREATE TABLE `Games` (
   `board` varchar(255) DEFAULT NULL,
   `winner` varchar(30) DEFAULT '',
   PRIMARY KEY (`gameid`)
-) ENGINE=MyISAM AUTO_INCREMENT=153 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=164 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +93,7 @@ CREATE TABLE `Users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `gameid` (`gameid`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,8 +107,7 @@ CREATE TABLE `UsersHistory` (
   `username` varchar(30) DEFAULT NULL,
   `opponent` varchar(30) DEFAULT NULL,
   `playedon` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `result` varchar(30) DEFAULT NULL,
-  KEY `username` (`username`)
+  `result` varchar(30) DEFAULT 'Draw'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -121,4 +120,4 @@ CREATE TABLE `UsersHistory` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-04-16 20:39:46
+-- Dump completed on 2011-04-17 13:10:00

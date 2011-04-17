@@ -20,7 +20,9 @@
  {
  	$("#info").hide();
  	$("#error_info").hide();
-	$("globalvar").hide();
+	$("#globalvar").hide();
+	$("#logindiv").children().hide();
+	$("#logindiv").children().show('slow');
  }
  
 function chk_callback(data)
@@ -99,7 +101,7 @@ function password_check() {
 </div>
 
 <div id="main">
-<div class="logindiv">
+<div class="logindiv" id="logindiv">
 
 <span id="globalvar"></span>
 
