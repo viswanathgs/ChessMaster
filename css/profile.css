@@ -47,15 +47,27 @@ div.scrollTableContainer tr.row1 {
 }
 
 div.main {
-  position: absolute;
+/*  position: absolute;
   top: 180px;
-  left: 200px;
+  left: 200px;*/
+  float: left;
 }
 
-div#startgame {
-  position: absolute;
-  top: 250px;
-  left: 1100px;
+#startgame {
+/*  position: absolute;
+  left: 100px;*/
+}
+
+div#right {
+/*  margin-top: 50px;
+  margin-left: 100px;*/
+/*  float: left; */
+/*  position: absolute;
+  top: 200px;
+  left: 900px;*/
+  float: left;
+  margin-top: 50px;
+  margin-left: 100px;
 }
 
 #startbutton {

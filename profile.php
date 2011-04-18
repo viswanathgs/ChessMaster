@@ -191,10 +191,11 @@ function pageExit() {
 <a href="index.php"><img border="0" src="images/logo.png" /></a>
 </div>
 
-<div class="right" id="startgame">
-<input type="button" onclick="pairUp()" value="Enter Arena" id="startbutton" onMouseOver="mouseOverButton()" onMouseOut="mouseOutButton()"/>
+<div id="right">
+<div id="startgame">
+<input type="button" value="Enter Arena" onclick="pairUp()" id="startbutton" onMouseOver="mouseOverButton()" onMouseOut="mouseOutButton()"/>
 <div name="status" id="status"></div>
-</div>
+</div></div>
 
 <div id="main" class="main">
 <div id="profile" class="logindiv">
