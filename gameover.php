@@ -8,8 +8,8 @@
   $username=$_SESSION['username'];
   $gameid=$_POST['g'];
 
-  $sql='UPDATE Users SET status="'."normal".'" where username="'.$username.'"';
-  $mysql_query($sql) or die('Error: '.mysql_error());
+  $sql='UPDATE Users SET status="normal" WHERE username="'.$username.'"';
+  mysql_query($sql) or die('Error: '.mysql_error());
 
   $sql='SELECT * FROM Games WHERE gameid='.$gameid;
   $result=mysql_query($sql) or die('Error: '.mysql_error());

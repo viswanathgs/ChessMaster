@@ -6,7 +6,7 @@
 
   $username=$_SESSION['username'];
 
-  $sql='UPDATE Users SET status="'."normal".'" WHERE username="'.$username.'"';
+  $sql='UPDATE Users SET status="normal" WHERE username="'.$username.'"';
   mysql_query($sql) or die('Error: '.mysql_error());
 
   echo "1";
