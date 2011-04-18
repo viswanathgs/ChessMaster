@@ -167,14 +167,14 @@ function logout() {
   });
 }
 
-function dummyFunction() {
-  return true;
-}
-
 function pageExit() {
-  $("#profile").children().hide('slow');
-  $("#history").children().hide('slow');
-  setTimeout(dummyFunction, 500);
+  $.ajax({
+  type: "POST",
+  url: "closeprofile.php",
+  async: false,
+  success: function(data) {
+  }
+});
 }
 
 </script>
