@@ -196,7 +196,7 @@ function pageExit() {
 <div name="status" id="status"></div>
 </div>
 
-<div id="main">
+<div id="main" class="main">
 <div id="profile" class="logindiv">
 <fieldset class="loginfield"> <legend id="profilelegend"></legend>
 

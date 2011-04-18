@@ -547,6 +547,28 @@ function mouseOutButton() {
   document.getElementById("quitbutton").style.borderRightColor = "#BBBBBB";
 }
 
+function mouseOverSquare(col,row) {
+  if (disabled) return;
+
+//   if (selectedcol == "" || selectedrow == 0) {
+//     if (isValidInitialSelection(col,row)) {
+//       var square = "square"+col+row;
+//       document.getElementById(square).innerHTML = "<img src='images/"+board[col][row]+"S.gif' />";
+//     }
+//   }
+}
+
+function mouseOutSquare(col,row) {
+  if (disabled) return;
+
+//   if (selectedcol == "" || selectedrow == 0) {
+//     if (isValidInitialSelection(col,row)) {
+//       var square = "square"+col+row;	
+//       document.getElementById(square).innerHTML = "<img src='images/"+board[col][row]+".gif' />";
+//     }
+//   }
+}
+
 </script>
 </head>
 
@@ -555,77 +577,77 @@ function mouseOutButton() {
 <div name="divboard" id="divboard">
 <fieldset id="fieldboard" class="gamefield"><legend id="boardlegend"></legend>
 <table border="1" cellspacing="0" cellpadding="0" name="board" id="board">
-  <tr><td name="squareA8" id="squareA8" onclick="squareClicked('A',8)"></td>
-      <td name="squareB8" id="squareB8" onclick="squareClicked('B',8)"></td>
-      <td name="squareC8" id="squareC8" onclick="squareClicked('C',8)"></td>
-      <td name="squareD8" id="squareD8" onclick="squareClicked('D',8)"></td>
-      <td name="squareE8" id="squareE8" onclick="squareClicked('E',8)"></td>
-      <td name="squareF8" id="squareF8" onclick="squareClicked('F',8)"></td>
-      <td name="squareG8" id="squareG8" onclick="squareClicked('G',8)"></td>
-      <td name="squareH8" id="squareH8" onclick="squareClicked('H',8)"></td>
+  <tr><td name="squareA8" id="squareA8" onclick="squareClicked('A',8)" onMouseOver="mouseOverSquare('A',8)" onMouseOut="mouseOutSquare('A',8)"></td>
+      <td name="squareB8" id="squareB8" onclick="squareClicked('B',8)" onMouseOver="mouseOverSquare('B',8)" onMouseOut="mouseOutSquare('B',8)"></td>
+      <td name="squareC8" id="squareC8" onclick="squareClicked('C',8)" onMouseOver="mouseOverSquare('C',8)" onMouseOut="mouseOutSquare('C',8)"></td>
+      <td name="squareD8" id="squareD8" onclick="squareClicked('D',8)" onMouseOver="mouseOverSquare('D',8)" onMouseOut="mouseOutSquare('D',8)"></td>
+      <td name="squareE8" id="squareE8" onclick="squareClicked('E',8)" onMouseOver="mouseOverSquare('E',8)" onMouseOut="mouseOutSquare('E',8)"></td>
+      <td name="squareF8" id="squareF8" onclick="squareClicked('F',8)" onMouseOver="mouseOverSquare('F',8)" onMouseOut="mouseOutSquare('F',8)"></td>
+      <td name="squareG8" id="squareG8" onclick="squareClicked('G',8)" onMouseOver="mouseOverSquare('G',8)" onMouseOut="mouseOutSquare('G',8)"></td>
+      <td name="squareH8" id="squareH8" onclick="squareClicked('H',8)" onMouseOver="mouseOverSquare('H',8)" onMouseOut="mouseOutSquare('H',8)"></td>
   </tr>	
-  <tr><td name="squareA7" id="squareA7" onclick="squareClicked('A',7)"></td>
-      <td name="squareB7" id="squareB7" onclick="squareClicked('B',7)"></td>
-      <td name="squareC7" id="squareC7" onclick="squareClicked('C',7)"></td>
-      <td name="squareD7" id="squareD7" onclick="squareClicked('D',7)"></td>
-      <td name="squareE7" id="squareE7" onclick="squareClicked('E',7)"></td>
-      <td name="squareF7" id="squareF7" onclick="squareClicked('F',7)"></td>
-      <td name="squareG7" id="squareG7" onclick="squareClicked('G',7)"></td>
-      <td name="squareH7" id="squareH7" onclick="squareClicked('H',7)"></td>
+  <tr><td name="squareA7" id="squareA7" onclick="squareClicked('A',7)" onMouseOver="mouseOverSquare('A',7)" onMouseOut="mouseOutSquare('A',7)"></td>
+      <td name="squareB7" id="squareB7" onclick="squareClicked('B',7)" onMouseOver="mouseOverSquare('B',7)" onMouseOut="mouseOutSquare('B',7)"></td>
+      <td name="squareC7" id="squareC7" onclick="squareClicked('C',7)" onMouseOver="mouseOverSquare('C',7)" onMouseOut="mouseOutSquare('C',7)"></td>
+      <td name="squareD7" id="squareD7" onclick="squareClicked('D',7)" onMouseOver="mouseOverSquare('D',7)" onMouseOut="mouseOutSquare('D',7)"></td>
+      <td name="squareE7" id="squareE7" onclick="squareClicked('E',7)" onMouseOver="mouseOverSquare('E',7)" onMouseOut="mouseOutSquare('E',7)"></td>
+      <td name="squareF7" id="squareF7" onclick="squareClicked('F',7)" onMouseOver="mouseOverSquare('F',7)" onMouseOut="mouseOutSquare('F',7)"></td>
+      <td name="squareG7" id="squareG7" onclick="squareClicked('G',7)" onMouseOver="mouseOverSquare('G',7)" onMouseOut="mouseOutSquare('G',7)"></td>
+      <td name="squareH7" id="squareH7" onclick="squareClicked('H',7)" onMouseOver="mouseOverSquare('H',7)" onMouseOut="mouseOutSquare('H',7)"></td>
   </tr>	  
-  <tr><td name="squareA6" id="squareA6" onclick="squareClicked('A',6)"></td>
-      <td name="squareB6" id="squareB6" onclick="squareClicked('B',6)"></td>
-      <td name="squareC6" id="squareC6" onclick="squareClicked('C',6)"></td>
-      <td name="squareD6" id="squareD6" onclick="squareClicked('D',6)"></td>
-      <td name="squareE6" id="squareE6" onclick="squareClicked('E',6)"></td>
-      <td name="squareF6" id="squareF6" onclick="squareClicked('F',6)"></td>
-      <td name="squareG6" id="squareG6" onclick="squareClicked('G',6)"></td>
-      <td name="squareH6" id="squareH6" onclick="squareClicked('H',6)"></td>
+  <tr><td name="squareA6" id="squareA6" onclick="squareClicked('A',6)" onMouseOver="mouseOverSquare('A',6)" onMouseOut="mouseOutSquare('A',6)"></td>
+      <td name="squareB6" id="squareB6" onclick="squareClicked('B',6)" onMouseOver="mouseOverSquare('B',6)" onMouseOut="mouseOutSquare('B',6)"></td>
+      <td name="squareC6" id="squareC6" onclick="squareClicked('C',6)" onMouseOver="mouseOverSquare('C',6)" onMouseOut="mouseOutSquare('C',6)"></td>
+      <td name="squareD6" id="squareD6" onclick="squareClicked('D',6)" onMouseOver="mouseOverSquare('D',6)" onMouseOut="mouseOutSquare('D',6)"></td>
+      <td name="squareE6" id="squareE6" onclick="squareClicked('E',6)" onMouseOver="mouseOverSquare('E',6)" onMouseOut="mouseOutSquare('E',6)"></td>
+      <td name="squareF6" id="squareF6" onclick="squareClicked('F',6)" onMouseOver="mouseOverSquare('F',6)" onMouseOut="mouseOutSquare('F',6)"></td>
+      <td name="squareG6" id="squareG6" onclick="squareClicked('G',6)" onMouseOver="mouseOverSquare('G',6)" onMouseOut="mouseOutSquare('G',6)"></td>
+      <td name="squareH6" id="squareH6" onclick="squareClicked('H',6)" onMouseOver="mouseOverSquare('H',6)" onMouseOut="mouseOutSquare('H',6)"></td>
   </tr>	  
-  <tr><td name="squareA5" id="squareA5" onclick="squareClicked('A',5)"></td>
-      <td name="squareB5" id="squareB5" onclick="squareClicked('B',5)"></td>
-      <td name="squareC5" id="squareC5" onclick="squareClicked('C',5)"></td>
-      <td name="squareD5" id="squareD5" onclick="squareClicked('D',5)"></td>
-      <td name="squareE5" id="squareE5" onclick="squareClicked('E',5)"></td>
-      <td name="squareF5" id="squareF5" onclick="squareClicked('F',5)"></td>
-      <td name="squareG5" id="squareG5" onclick="squareClicked('G',5)"></td>
-      <td name="squareH5" id="squareH5" onclick="squareClicked('H',5)"></td>
+  <tr><td name="squareA5" id="squareA5" onclick="squareClicked('A',5)" onMouseOver="mouseOverSquare('A',5)" onMouseOut="mouseOutSquare('A',5)"></td>
+      <td name="squareB5" id="squareB5" onclick="squareClicked('B',5)" onMouseOver="mouseOverSquare('B',5)" onMouseOut="mouseOutSquare('B',5)"></td>
+      <td name="squareC5" id="squareC5" onclick="squareClicked('C',5)" onMouseOver="mouseOverSquare('C',5)" onMouseOut="mouseOutSquare('C',5)"></td>
+      <td name="squareD5" id="squareD5" onclick="squareClicked('D',5)" onMouseOver="mouseOverSquare('D',5)" onMouseOut="mouseOutSquare('D',5)"></td>
+      <td name="squareE5" id="squareE5" onclick="squareClicked('E',5)" onMouseOver="mouseOverSquare('E',5)" onMouseOut="mouseOutSquare('E',5)"></td>
+      <td name="squareF5" id="squareF5" onclick="squareClicked('F',5)" onMouseOver="mouseOverSquare('F',5)" onMouseOut="mouseOutSquare('F',5)"></td>
+      <td name="squareG5" id="squareG5" onclick="squareClicked('G',5)" onMouseOver="mouseOverSquare('G',5)" onMouseOut="mouseOutSquare('G',5)"></td>
+      <td name="squareH5" id="squareH5" onclick="squareClicked('H',5)" onMouseOver="mouseOverSquare('H',5)" onMouseOut="mouseOutSquare('H',5)"></td>
   </tr>	  
- <tr> <td name="squareA4" id="squareA4" onclick="squareClicked('A',4)"></td>
-      <td name="squareB4" id="squareB4" onclick="squareClicked('B',4)"></td>
-      <td name="squareC4" id="squareC4" onclick="squareClicked('C',4)"></td>
-      <td name="squareD4" id="squareD4" onclick="squareClicked('D',4)"></td>
-      <td name="squareE4" id="squareE4" onclick="squareClicked('E',4)"></td>
-      <td name="squareF4" id="squareF4" onclick="squareClicked('F',4)"></td>
-      <td name="squareG4" id="squareG4" onclick="squareClicked('G',4)"></td>
-      <td name="squareH4" id="squareH4" onclick="squareClicked('H',4)"></td>
+ <tr> <td name="squareA4" id="squareA4" onclick="squareClicked('A',4)" onMouseOver="mouseOverSquare('A',4)" onMouseOut="mouseOutSquare('A',4)"></td>
+      <td name="squareB4" id="squareB4" onclick="squareClicked('B',4)" onMouseOver="mouseOverSquare('B',4)" onMouseOut="mouseOutSquare('B',4)"></td>
+      <td name="squareC4" id="squareC4" onclick="squareClicked('C',4)" onMouseOver="mouseOverSquare('C',4)" onMouseOut="mouseOutSquare('C',4)"></td>
+      <td name="squareD4" id="squareD4" onclick="squareClicked('D',4)" onMouseOver="mouseOverSquare('D',4)" onMouseOut="mouseOutSquare('D',4)"></td>
+      <td name="squareE4" id="squareE4" onclick="squareClicked('E',4)" onMouseOver="mouseOverSquare('E',4)" onMouseOut="mouseOutSquare('E',4)"></td>
+      <td name="squareF4" id="squareF4" onclick="squareClicked('F',4)" onMouseOver="mouseOverSquare('F',4)" onMouseOut="mouseOutSquare('F',4)"></td>
+      <td name="squareG4" id="squareG4" onclick="squareClicked('G',4)" onMouseOver="mouseOverSquare('G',4)" onMouseOut="mouseOutSquare('G',4)"></td>
+      <td name="squareH4" id="squareH4" onclick="squareClicked('H',4)" onMouseOver="mouseOverSquare('H',4)" onMouseOut="mouseOutSquare('H',4)"></td>
   </tr>
-  <tr><td name="squareA3" id="squareA3" onclick="squareClicked('A',3)"></td>
-      <td name="squareB3" id="squareB3" onclick="squareClicked('B',3)"></td>
-      <td name="squareC3" id="squareC3" onclick="squareClicked('C',3)"></td>
-      <td name="squareD3" id="squareD3" onclick="squareClicked('D',3)"></td>
-      <td name="squareE3" id="squareE3" onclick="squareClicked('E',3)"></td>
-      <td name="squareF3" id="squareF3" onclick="squareClicked('F',3)"></td>
-      <td name="squareG3" id="squareG3" onclick="squareClicked('G',3)"></td>
-      <td name="squareH3" id="squareH3" onclick="squareClicked('H',3)"></td>
+  <tr><td name="squareA3" id="squareA3" onclick="squareClicked('A',3)" onMouseOver="mouseOverSquare('A',3)" onMouseOut="mouseOutSquare('A',3)"></td>
+      <td name="squareB3" id="squareB3" onclick="squareClicked('B',3)" onMouseOver="mouseOverSquare('B',3)" onMouseOut="mouseOutSquare('B',3)"></td>
+      <td name="squareC3" id="squareC3" onclick="squareClicked('C',3)" onMouseOver="mouseOverSquare('C',3)" onMouseOut="mouseOutSquare('C',3)"></td>
+      <td name="squareD3" id="squareD3" onclick="squareClicked('D',3)" onMouseOver="mouseOverSquare('D',3)" onMouseOut="mouseOutSquare('D',3)"></td>
+      <td name="squareE3" id="squareE3" onclick="squareClicked('E',3)" onMouseOver="mouseOverSquare('E',3)" onMouseOut="mouseOutSquare('E',3)"></td>
+      <td name="squareF3" id="squareF3" onclick="squareClicked('F',3)" onMouseOver="mouseOverSquare('F',3)" onMouseOut="mouseOutSquare('F',3)"></td>
+      <td name="squareG3" id="squareG3" onclick="squareClicked('G',3)" onMouseOver="mouseOverSquare('G',3)" onMouseOut="mouseOutSquare('G',3)"></td>
+      <td name="squareH3" id="squareH3" onclick="squareClicked('H',3)" onMouseOver="mouseOverSquare('H',3)" onMouseOut="mouseOutSquare('H',3)"></td>
   </tr>
-  <tr><td name="squareA2" id="squareA2" onclick="squareClicked('A',2)"></td>
-      <td name="squareB2" id="squareB2" onclick="squareClicked('B',2)"></td>
-      <td name="squareC2" id="squareC2" onclick="squareClicked('C',2)"></td>
-      <td name="squareD2" id="squareD2" onclick="squareClicked('D',2)"></td>
-      <td name="squareE2" id="squareE2" onclick="squareClicked('E',2)"></td>
-      <td name="squareF2" id="squareF2" onclick="squareClicked('F',2)"></td>
-      <td name="squareG2" id="squareG2" onclick="squareClicked('G',2)"></td>
-      <td name="squareH2" id="squareH2" onclick="squareClicked('H',2)"></td>
+  <tr><td name="squareA2" id="squareA2" onclick="squareClicked('A',2)" onMouseOver="mouseOverSquare('A',2)" onMouseOut="mouseOutSquare('A',2)"></td>
+      <td name="squareB2" id="squareB2" onclick="squareClicked('B',2)" onMouseOver="mouseOverSquare('B',2)" onMouseOut="mouseOutSquare('B',2)"></td>
+      <td name="squareC2" id="squareC2" onclick="squareClicked('C',2)" onMouseOver="mouseOverSquare('C',2)" onMouseOut="mouseOutSquare('C',2)"></td>
+      <td name="squareD2" id="squareD2" onclick="squareClicked('D',2)" onMouseOver="mouseOverSquare('D',2)" onMouseOut="mouseOutSquare('D',2)"></td>
+      <td name="squareE2" id="squareE2" onclick="squareClicked('E',2)" onMouseOver="mouseOverSquare('E',2)" onMouseOut="mouseOutSquare('E',2)"></td>
+      <td name="squareF2" id="squareF2" onclick="squareClicked('F',2)" onMouseOver="mouseOverSquare('F',2)" onMouseOut="mouseOutSquare('F',2)"></td>
+      <td name="squareG2" id="squareG2" onclick="squareClicked('G',2)" onMouseOver="mouseOverSquare('G',2)" onMouseOut="mouseOutSquare('G',2)"></td>
+      <td name="squareH2" id="squareH2" onclick="squareClicked('H',2)" onMouseOver="mouseOverSquare('H',2)" onMouseOut="mouseOutSquare('H',2)"></td>
   </tr>	
-  <tr><td name="squareA1" id="squareA1" onclick="squareClicked('A',1)"></td>
-      <td name="squareB1" id="squareB1" onclick="squareClicked('B',1)"></td>
-      <td name="squareC1" id="squareC1" onclick="squareClicked('C',1)"></td>
-      <td name="squareD1" id="squareD1" onclick="squareClicked('D',1)"></td>
-      <td name="squareE1" id="squareE1" onclick="squareClicked('E',1)"></td>
-      <td name="squareF1" id="squareF1" onclick="squareClicked('F',1)"></td>
-      <td name="squareG1" id="squareG1" onclick="squareClicked('G',1)"></td>
-      <td name="squareH1" id="squareH1" onclick="squareClicked('H',1)"></td>
+  <tr><td name="squareA1" id="squareA1" onclick="squareClicked('A',1)" onMouseOver="mouseOverSquare('A',1)" onMouseOut="mouseOutSquare('A',1)"></td>
+      <td name="squareB1" id="squareB1" onclick="squareClicked('B',1)" onMouseOver="mouseOverSquare('B',1)" onMouseOut="mouseOutSquare('B',1)"></td>
+      <td name="squareC1" id="squareC1" onclick="squareClicked('C',1)" onMouseOver="mouseOverSquare('C',1)" onMouseOut="mouseOutSquare('C',1)"></td>
+      <td name="squareD1" id="squareD1" onclick="squareClicked('D',1)" onMouseOver="mouseOverSquare('D',1)" onMouseOut="mouseOutSquare('D',1)"></td>
+      <td name="squareE1" id="squareE1" onclick="squareClicked('E',1)" onMouseOver="mouseOverSquare('E',1)" onMouseOut="mouseOutSquare('E',1)"></td>
+      <td name="squareF1" id="squareF1" onclick="squareClicked('F',1)" onMouseOver="mouseOverSquare('F',1)" onMouseOut="mouseOutSquare('F',1)"></td>
+      <td name="squareG1" id="squareG1" onclick="squareClicked('G',1)" onMouseOver="mouseOverSquare('G',1)" onMouseOut="mouseOutSquare('G',1)"></td>
+      <td name="squareH1" id="squareH1" onclick="squareClicked('H',1)" onMouseOver="mouseOverSquare('H',1)" onMouseOut="mouseOutSquare('H',1)"></td>
   </tr>	
 </table>
 </fieldset>

@@ -1,13 +1,19 @@
 div#divboard {
-  margin-top: 50px;
+/*  margin-top: 50px;
   margin-left: 200px;
-  float: left;
+  float: left;*/
+  position: absolute;
+  top: 50px;
+  left: 300px;
 }
 
 div#right {
-  margin-top: 50px;
-  margin-left: 100px;
-  float: left; 
+/*  margin-top: 50px;
+  margin-left: 100px;*/
+/*  float: left; */
+  position: absolute;
+  top: 50px;
+  left: 900px;
 }
 
 div#divchat {

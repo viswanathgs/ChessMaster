@@ -46,9 +46,16 @@ div.scrollTableContainer tr.row1 {
   background: #E6F0F5;
 }
 
+div.main {
+  position: absolute;
+  top: 180px;
+  left: 220px;
+}
+
 div#startgame {
-  margin-right: 100px;
-  float: right;
+  position: absolute;
+  top: 250px;
+  left: 1000px;
 }
 
 #startbutton {
