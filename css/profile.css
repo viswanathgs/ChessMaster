@@ -49,13 +49,13 @@ div.scrollTableContainer tr.row1 {
 div.main {
   position: absolute;
   top: 180px;
-  left: 220px;
+  left: 200px;
 }
 
 div#startgame {
   position: absolute;
   top: 250px;
-  left: 1000px;
+  left: 1100px;
 }
 
 #startbutton {
