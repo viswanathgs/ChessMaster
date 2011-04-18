@@ -62,7 +62,7 @@ function isValidMovePawn(colf,rowf,colt,rowt) {
       }
     }
 
-    if (rowf+2 == rowt && colfindex == coltindex) {
+    if (rowf == 2 && rowf+2 == rowt && colfindex == coltindex) {
       if (board[boardindex[colfindex]][rowf+2] == "" && board[boardindex[colfindex]][rowf+1] == "")
 	return true;
     }
@@ -82,7 +82,7 @@ function isValidMovePawn(colf,rowf,colt,rowt) {
       }
     }
 
-    if (rowf-2 == rowt && colfindex == coltindex) {
+    if (rowf == 7 && rowf-2 == rowt && colfindex == coltindex) {
       if (board[boardindex[colfindex]][rowf-2] == "" && board[boardindex[colfindex]][rowf-1] == "")
 	return true;
     }
