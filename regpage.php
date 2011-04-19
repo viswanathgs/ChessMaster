@@ -121,7 +121,7 @@ function register() {
 
 <span id="globalvar"></span>
 
-<form action="login.php" method="post" onsubmit="return insert_into_db();">
+<form action="login.php" method="post" onsubmit="return insert_into_db();" >
 <!--<table class="logintable">-->
 <!--<tr><td>-->
 <fieldset name="loginfield" id="loginfield" class="loginfield"><legend>Registration</legend>
@@ -149,7 +149,7 @@ About Me</label> <textarea class="reg" name="aboutme" id="aboutme" rows="5" cols
 <!--<tr><td>-->
 <input type="hidden" value="1" name="regpage" id="regpage" />
 <label class="reg" for="submit">&nbsp;</label>
-<input class="reg" name="submit" type="button" value="Register" onclick="register()"/><!--</td></tr>-->
+<input class="reg" name="submit" id="submit" type="button" value="Register" onclick="register()"/><!--</td></tr>-->
 </fieldset>
 <!--</table>-->
  </form>

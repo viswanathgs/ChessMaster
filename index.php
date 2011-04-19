@@ -102,7 +102,7 @@ function register() {
 <span id="globalvar"></span>
 
 <fieldset class="loginfield"><legend>Login</legend>
-<form autocomplete="on" method="POST" action="login.php" onsubmit="return chk();">
+<form autocomplete="on" method="POST" action="login.php" onsubmit="return chk();" onkeydown="if (event.keyCode == 13) document.getElementById('loginbutton').click()">
 <table class="logintable">
 <tr><td>
 <label for="username"><p>
@@ -120,7 +120,7 @@ Password </label></p><input name="password" id="password" type="password" />
 </td></tr>
 
 <tr><td>
-<input type="button" value="Login" onclick="chk()"/>
+<input type="button" value="Login" onclick="chk()" id="loginbutton" />
 <input type="button" onclick="register()" value="Register" />
 </td>
 </tr>
