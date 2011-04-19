@@ -57,6 +57,7 @@ function password_check() {
   
   if ($("#password").val() == "") {
     $("#infopass").html("Password cannot be blank");
+    $("#infopass").css("color","red");
   }
   else if ($("#password").val() == $("#cpassword").val()) {
     $("#infopass").html("Passwords match");
@@ -64,6 +65,7 @@ function password_check() {
   }
   else {
     $("#infopass").html("Passwords do not match");
+    $("#infopass").css("color","red");
   }
 }
 
