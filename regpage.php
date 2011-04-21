@@ -39,10 +39,14 @@ function chk()
 	  { 
 		  $("#info").fadeOut("fast");
 		  $("#info").fadeIn("fast");
-		  if(data==1) 
+		  if(data==1) {
 			  $("#info").html("Username already taken"); 
-		  else if (data == 2)
+			  $("#info").css("color","red");
+		  }
+		  else if (data == 2) {
 			  $("#info").html("Username cannot be blank");
+			  $("#info").css("color","red");
+		  }
 		  else {
 			  $("#info").html("Username "+$("#username").val()+" is available");
 			  $("#info").css("color","green");
