@@ -1,6 +1,10 @@
+Author: Viswanath S aka viswanathgs <viswanathgs@gmail.com>
+
 An online chess club where users can create accounts and 
 play friendly matches against random opponents. In-game
 chat is available.
 
-My first PHP/MySQL/Javascript project.
 Part of DBMS coursework.
+
+Languages and Libraries: PHP, Javascript, JQuery, AJAX
+Database: MySQL
